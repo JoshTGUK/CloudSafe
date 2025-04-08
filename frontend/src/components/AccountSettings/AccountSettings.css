@@ -1,0 +1,219 @@
+.settings-container {
+  padding: 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.settings-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 60px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.settings-content h1 {
+  color: #334151;
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+
+.settings-section {
+  margin-bottom: 40px;
+}
+
+.settings-section h2 {
+  color: #637587;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.unique-id-box {
+  background: #eff2f4;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unique-id-box button {
+  background: #1A80E5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.settings-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.settings-form .form-group {
+  margin-bottom: 20px;
+  padding-right: 20px;
+}
+
+.section-header {
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+  color: #334151;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.settings-form input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e0e4e8;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.settings-form input:focus {
+  border-color: #1A80E5;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 128, 229, 0.1);
+}
+
+.notification-toggles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #e0e4e8;
+}
+
+.toggle-switch:hover {
+  background: #eff2f4;
+  border-color: #1A80E5;
+}
+
+.toggle-label-container {
+  display: flex;
+  align-items: center;
+}
+
+.notification-icon {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.toggle-label {
+  color: #334151;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Toggle Switch Styles */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e0e4e8;
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1A80E5;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.save-button {
+  background: #1A80E5;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background: #1666b8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 128, 229, 0.2);
+}
+
+.save-button-container {
+  grid-column: 1 / -1;
+  padding-right: 0;
+}
+
+/* Add these styles after your existing .settings-form styles */
+.password-form {
+  max-width: 100%;
+}
+
+.password-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.password-grid .form-group {
+  margin-bottom: 0;
+  padding-right: 20px;
+}
+
+.password-grid .form-group:nth-child(3) {
+  grid-column: 1 / 2;
+}
+
+.password-grid .button-group {
+  grid-column: 2 / 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}

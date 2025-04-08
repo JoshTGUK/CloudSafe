@@ -1,0 +1,294 @@
+.property-dashboard {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* Header Styles */
+.dashboard-header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.main-nav a {
+  color: #1a1f36;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: #f0f2f5;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1a80e5;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  grid-row: 2;
+  background: white;
+  padding: 24px 16px;
+  border-right: 1px solid #e1e4e8;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding: 0 12px;
+}
+
+.sidebar-nav {
+  flex: 1;
+}
+
+.sidebar-item {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  font: inherit;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-item.active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-icon {
+  margin-right: 12px;
+  width: 20px;
+}
+
+.sidebar-label {
+  font-size: 14px;
+}
+
+.new-inspection-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1a80e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+/* Main Content Styles */
+.main-content {
+  grid-row: 2;
+  padding: 32px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.content-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1f36;
+  margin: 0;
+  text-align: left;
+}
+
+.address {
+  font-size: 14px;
+  color: #637587;
+  margin: 4px 0 0 0;
+  text-align: left;
+}
+
+.start-inspection-btn {
+  padding: 12px 24px;
+  background: #1a80e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.safety-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.safety-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e1e4e8;
+}
+
+.safety-card h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+  color: #1a1f36;
+}
+
+.issues-count {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1f36;
+}
+
+.recent-inspections {
+  margin-top: 32px;
+}
+
+.recent-inspections h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1f36;
+  margin-bottom: 16px;
+}
+
+.inspection-list {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.inspection-item {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e1e4e8;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.inspection-item:last-child {
+  border-bottom: none;
+}
+
+.inspection-item:hover {
+  background-color: #f8f9fa;
+}
+
+.inspection-icon {
+  width: 48px;
+  height: 48px;
+  background: #f0f2f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  font-size: 20px;
+}
+
+.inspection-info {
+  flex: 1;
+}
+
+.inspection-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1f36;
+  margin-bottom: 4px;
+}
+
+.inspection-date {
+  font-size: 14px;
+  color: #637587;
+}
+
+.inspection-arrow {
+  font-size: 24px;
+  color: #637587;
+  margin-left: 16px;
+}
+
+.placeholder-image {
+  background-color: #f0f0f0;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.property-image {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.property-image-container {
+  width: 100%;
+  max-width: 300px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}

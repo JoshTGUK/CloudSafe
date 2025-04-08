@@ -1,0 +1,249 @@
+:root {
+  --primary-color: #1980e5;
+  --text-color: #334151;
+  --background-color: #ffffff;
+  --input-background: #f0f2f5;
+  --input-border: #cccfd3;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: 'Inter', sans-serif;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: transparent;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: transparent;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 40px;
+  margin-left: 8px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.new-to-all-safe {
+  margin-right: 10px;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.create-account-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.depth-frame {
+  background-color: var(--background-color);
+  border-radius: 20px;
+  padding: 40px;
+  width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.log-in {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  text-align: left;
+}
+
+.welcome-back {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #637587;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 16px;
+  text-align: left;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 15px;
+  font-size: 16px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  margin-right: 8px;
+}
+
+.forgot-password {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.sign-in-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-in-button:hover {
+  background-color: #1565c0;
+}
+
+.terms-privacy {
+  font-size: 14px;
+  color: #637587;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.marketing-consent, .terms-agreement {
+  font-size: 12px;
+  color: #637587;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.terms-agreement a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link-text {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+/* Add these new styles */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: #637587;
+  font-size: 16px;
+}
+
+.input-with-icon .input-field {
+  padding-left: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #637587;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.captcha-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.input-field.error {
+  border-color: #ff3b30;
+}
+
+.error-message {
+  color: #ff3b30;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Loading state */
+.sign-in-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

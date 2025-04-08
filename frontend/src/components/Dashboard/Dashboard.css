@@ -1,0 +1,507 @@
+.main-container {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.all-safe {
+  width: 155px;
+  height: 40px;
+  background: url('../../assets/ALL-Safe-logo.png') no-repeat center;
+  background-size: contain;
+  margin-right: 40px;
+}
+
+.logo-image {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  color: #637587;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #1A80E5;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 20px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #eff2f4;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.icon:hover {
+  background-color: #1980e5;
+}
+
+.icon i {
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+.icon:hover i {
+  color: #ffffff;
+}
+
+.user-avatar-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: #1A80E5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.user-avatar:hover {
+  box-shadow: 0 0 0 2px #1A80E5;
+}
+
+.user-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.user-menu a {
+  display: block;
+  padding: 12px 20px;
+  color: #334151;
+  text-decoration: none;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-menu a:hover {
+  background-color: #1A80E5;
+  color: white;
+}
+
+.dashboard-content {
+  padding: 24px 40px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-color: transparent;
+}
+
+.dashboard-content .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 32px;
+  box-shadow: none;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: #334151;
+}
+
+.dashboard-subtitle {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: #637587;
+  margin: 0;
+}
+
+.add-property-btn {
+  display: flex;
+  width: 185px;
+  height: 40px;
+  padding: 0px 16px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #1A80E5;
+  color: white;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-property-btn:hover {
+  background: #F0F0F5;
+  color: #1A80E5;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 0 16px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+  height: 48px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-bar i {
+  color: #637587;
+  margin-right: 12px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  color: #334151;
+}
+
+.search-bar input::placeholder {
+  color: #637587;
+}
+
+.overview-section {
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.overview-title {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #334151;
+  margin-bottom: 16px;
+}
+
+.overview-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  flex: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-title {
+  font-size: 14px;
+  color: #637587;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #334151;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.property-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.property-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.property-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.property-info {
+  padding: 16px;
+}
+
+.property-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.property-address {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.property-delete-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.property-delete-icon:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.property-delete-icon i {
+  color: #ff4444;
+  font-size: 16px;
+}
+
+.delete-confirmation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.delete-confirmation-modal h3 {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.delete-confirmation-modal p {
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  color: #637587;
+  margin-bottom: 20px;
+}
+
+.delete-confirmation-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.delete-confirmation-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.delete-confirm-btn {
+  background-color: #E53935;
+  color: white;
+}
+
+.delete-confirm-btn:hover {
+  background-color: #C62828;
+}
+
+.delete-cancel-btn {
+  background-color: #f0f0f5;
+  color: #333;
+}
+
+.delete-cancel-btn:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    height: auto;
+    padding: 12px;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 12px;
+  }
+
+  .nav-links {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+}
+
+.logo {
+  height: 40px;
+  margin-right: 40px;
+}
+
+.property-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Adjust the box height to accommodate the image */
+.overview-boxes .box {
+  min-height: 300px; /* Adjust this value based on your needs */
+}
+
+/* Make sure the right-side content flows properly */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.box-topic {
+  margin-top: 10px;
+}
+
+/* Add this if you want to ensure the placeholder image looks correct */
+img[src*="placeholder.png"] {
+  object-fit: cover;
+  background-color: #f5f5f5;
+}
+
+/* Add smooth transitions */
+.property-card * {
+  transition: all 0.2s ease;
+}
+
+.map-preview {
+  width: 100%;
+  height: 200px;
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.validation-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--success-color);
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
