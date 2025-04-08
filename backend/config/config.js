@@ -2,9 +2,9 @@ require('dotenv').config();
 
 module.exports = {
   development: {
-    username: process.env.DB_USER || 'allsafe_root',
+    username: process.env.DB_USER || 'cloudsafe_root',
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || 'allsafe_db',
+    database: process.env.DB_NAME || 'cloudsafe_db',
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',
     dialectOptions: {
@@ -25,9 +25,9 @@ module.exports = {
     dialect: 'mysql'
   },
   production: {
-    username: process.env.DB_USER || 'allsafe_root',
+    username: process.env.DB_USER || 'cloudsafe_root',
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || 'allsafe_db',
+    database: process.env.DB_NAME || 'cloudsafe_db',
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',
     dialectOptions: {

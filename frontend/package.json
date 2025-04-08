@@ -2,7 +2,7 @@
   "name": "all-safe-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://app.allsafe.london/",
+  "homepage": "https://app.cloudsafe.london/",
   "dependencies": {
     "@react-google-maps/api": "^2.20.5",
     "@testing-library/jest-dom": "^5.17.0",
