@@ -7,6 +7,7 @@ import Register from './components/Register/Register';
 import Dashboard from './components/Dashboard/Dashboard';
 import PropertyDashboard from './components/PropertyDashboard/PropertyDashboard';
 import RoofSafety from './components/RoofSafety/RoofSafety';
+import FireSafety from './components/FireSafety/FireSafety';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -52,6 +53,11 @@ const routes = [
       {
         path: "properties/:id/roof-safety",
         element: <ProtectedRoute><RoofSafety /></ProtectedRoute>,
+        errorElement: <ErrorPage />
+      },
+      {
+        path: "properties/:id/fire-safety",
+        element: <ProtectedRoute><FireSafety /></ProtectedRoute>,
         errorElement: <ErrorPage />
       }
     ]

@@ -1,4 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faSearch, 
+  faFilter, 
+  faEye, 
+  faEdit, 
+  faClipboardCheck, 
+  faCheckCircle,
+  faExclamationTriangle,
+  faTimesCircle,
+  faDownload,
+  faUpload,
+  faCalendarAlt,
+  faUser,
+  faBuilding,
+  faLadder,
+  faClock,
+  faPlus,
+  faXmark,
+  faQuestionCircle
+} from '@fortawesome/free-solid-svg-icons';
 import './Ladders.css';
 import { toast } from 'react-toastify';
 
@@ -104,23 +125,17 @@ export default function Ladders({ propertyId }) {
 
   return (
     <div className="ladders-section">
-      <h1>Ladders</h1>
-      
-      <div className="search-controls">
-        <div className="search-bar">
-          <i className="fas fa-search"></i>
-          <input type="text" placeholder="Search ladders" />
+      <div className="page-header">
+        <div className="header-content">
+          <h1>Ladders</h1>
+          <p>Monitor and maintain the safety of all ladders across your properties.</p>
         </div>
-        <div className="table-buttons">
-          <button className="filter-btn">
-            <i className="fas fa-filter"></i>
-            Filter
-          </button>
+        <div className="header-actions">
           <button 
-            className="btn"
+            className="btn btn-primary"
             onClick={() => setShowCreateModal(true)}
           >
-            Create Ladder
+            <FontAwesomeIcon icon={faPlus} /> Add Ladder
           </button>
         </div>
       </div>
@@ -164,12 +179,18 @@ export default function Ladders({ propertyId }) {
                       className="btn btn-secondary"
                       onClick={() => handleViewTestData(ladder)}
                     >
-                      View Test Data
+                      <FontAwesomeIcon icon={faEye} /> View Test Data
                     </button>
                   </td>
                   <td>
-                    <button className="edit-btn">
-                      <i className="fas fa-pencil-alt"></i>
+                    <button 
+                      className="edit-btn"
+                      onClick={() => {
+                        setEditingLadder(ladder);
+                        setShowEditModal(true);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faEdit} />
                     </button>
                   </td>
                 </tr>

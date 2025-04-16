@@ -142,6 +142,9 @@ export default function PropertyDashboard() {
       case 'roof':
         navigate(`/properties/${id}/roof-safety`);
         break;
+      case 'fire':
+        navigate(`/properties/${id}/fire-safety`);
+        break;
       case 'profile':
         navigate(`${baseUrl}/${id}/profile`);
         break;
