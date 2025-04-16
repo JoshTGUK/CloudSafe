@@ -11,11 +11,13 @@ import Walkways from './Walkways';
 import Handrails from './Handrails';
 import StaticLines from './Staticlines';
 import AnchorPoints from './AnchorPoints';
+import RoofSafetyDashboard from './RoofSafetyDashboard';
+import DavitBases from './DavitBases';
 
 export default function RoofSafety() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [expandedSection, setExpandedSection] = useState('anchor-points');
+  const [expandedSection, setExpandedSection] = useState('dashboard');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [anchorPoints, setAnchorPoints] = useState([]);
   const [cradles, setCradles] = useState([]);
@@ -283,10 +285,18 @@ export default function RoofSafety() {
   const handleSectionClick = (sectionId) => {
     setExpandedSection(sectionId);
     setError(null);
-    if (sectionId === 'anchor-points') {
+    if (sectionId === 'dashboard') {
+      // Dashboard doesn't need to fetch specific data as it will fetch its own
+      setAnchorPoints([]);
+      setCradles([]);
+    } else if (sectionId === 'anchor-points') {
       fetchRoofSafetyData();
     } else if (sectionId === 'cradles') {
       fetchCradlesData();
+    } else if (sectionId === 'davit-bases') {
+      // The DavitBases component will handle its own data fetching
+      setAnchorPoints([]);
+      setCradles([]);
     } else {
       setAnchorPoints([]);
       setCradles([]);
@@ -295,8 +305,10 @@ export default function RoofSafety() {
   };
 
   const sidebarSections = [
+    { id: 'dashboard', label: 'Dashboard' },
     { id: 'anchor-points', label: 'Anchor Points' },
     { id: 'cradles', label: 'Cradles' },
+    { id: 'davit-bases', label: 'Davit Bases' },
     { id: 'ladders', label: 'Ladders' },
     { id: 'walkways', label: 'Walkways' },
     { id: 'handrails', label: 'Handrails' },
@@ -596,7 +608,7 @@ export default function RoofSafety() {
   }
 
   return (
-    <div className="roof-safety-page">
+    <div className="roof-safety-container">
       <MainHeader />
       <div className="page-content">
         <div className="left-panel">
@@ -607,6 +619,7 @@ export default function RoofSafety() {
                 key={section.id}
                 className={`nav-item ${expandedSection === section.id ? 'active' : ''}`}
                 onClick={() => handleSectionClick(section.id)}
+                data-section={section.id}
               >
                 <span className="nav-label">{section.label}</span>
                 <span className="arrow">›</span>
@@ -616,7 +629,9 @@ export default function RoofSafety() {
         </div>
 
         <div className="main-panel">
-          {expandedSection === 'anchor-points' ? (
+          {expandedSection === 'dashboard' ? (
+            <RoofSafetyDashboard />
+          ) : expandedSection === 'anchor-points' ? (
             <div className="anchor-points-section">
               <h1>Anchor Points</h1>
               
@@ -832,6 +847,8 @@ export default function RoofSafety() {
                 </div>
               </div>
             </div>
+          ) : expandedSection === 'davit-bases' ? (
+            <DavitBases />
           ) : (
             <div className="coming-soon-section">
               <h1>{expandedSection.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>

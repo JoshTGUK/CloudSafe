@@ -5,6 +5,8 @@ import Register from '../components/Register/Register';
 import Dashboard from '../components/Dashboard/Dashboard';
 import PropertyDashboard from '../components/PropertyDashboard/PropertyDashboard';
 import RoofSafety from '../components/RoofSafety/RoofSafety';
+import RoofSafetyDashboard from '../components/RoofSafety/RoofSafetyDashboard';
+import DavitBases from '../components/RoofSafety/DavitBases';
 import AccountSettings from '../components/AccountSettings/AccountSettings';
 import Documents from '../components/Documents/Documents';
 import './App.css';
@@ -20,6 +22,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/propertydashboard/:id" element={<PropertyDashboard />} />
           <Route path="/roof-safety/:id" element={<RoofSafety />} />
+          <Route path="/roof-safety/:id/dashboard" element={<RoofSafetyDashboard />} />
+          <Route path="/roof-safety/:id/davit-bases" element={<DavitBases />} />
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/documents" element={<Documents />} />
         </Routes>
