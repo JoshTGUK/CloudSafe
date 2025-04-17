@@ -107,7 +107,7 @@ export default function RoofSafetyDashboard() {
 
   const handleCardClick = (section) => {
     if (window.location.pathname.includes('/dashboard')) {
-      navigate(`/roof-safety/${id}`);
+      navigate(`/properties/${id}/roof-safety`);
     } else {
       const parentElement = document.querySelector(`.nav-item[data-section="${section}"]`);
       if (parentElement) parentElement.click();
@@ -218,56 +218,56 @@ export default function RoofSafetyDashboard() {
               <nav className="safety-nav">
                 <button 
                   className="nav-item active"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Dashboard</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Anchor Points</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Cradles</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Davit Bases</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Ladders</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Walkways</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Handrails</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Static Lines</span>
                   <span className="arrow">›</span>

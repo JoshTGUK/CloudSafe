@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './RoofSafety.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MainHeader from '../common/MainHeader/MainHeader';
 
 export default function DavitBases() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [davitBases, setDavitBases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -265,56 +266,56 @@ export default function DavitBases() {
               <nav className="safety-nav">
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Dashboard</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Anchor Points</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Cradles</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item active"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Davit Bases</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Ladders</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Walkways</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Handrails</span>
                   <span className="arrow">›</span>
                 </button>
                 <button 
                   className="nav-item"
-                  onClick={() => window.location.href = `/roof-safety/${id}`}
+                  onClick={() => navigate(`/properties/${id}/roof-safety`)}
                 >
                   <span className="nav-label">Static Lines</span>
                   <span className="arrow">›</span>

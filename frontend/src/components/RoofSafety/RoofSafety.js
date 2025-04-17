@@ -297,6 +297,22 @@ export default function RoofSafety() {
       // The DavitBases component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
+    } else if (sectionId === 'ladders') {
+      // The Ladders component will handle its own data fetching
+      setAnchorPoints([]);
+      setCradles([]);
+    } else if (sectionId === 'walkways') {
+      // The Walkways component will handle its own data fetching
+      setAnchorPoints([]);
+      setCradles([]);
+    } else if (sectionId === 'handrails') {
+      // The Handrails component will handle its own data fetching
+      setAnchorPoints([]);
+      setCradles([]);
+    } else if (sectionId === 'static-lines') {
+      // The StaticLines component will handle its own data fetching
+      setAnchorPoints([]);
+      setCradles([]);
     } else {
       setAnchorPoints([]);
       setCradles([]);
@@ -849,6 +865,14 @@ export default function RoofSafety() {
             </div>
           ) : expandedSection === 'davit-bases' ? (
             <DavitBases />
+          ) : expandedSection === 'ladders' ? (
+            <Ladders propertyId={id} />
+          ) : expandedSection === 'walkways' ? (
+            <Walkways propertyId={id} />
+          ) : expandedSection === 'handrails' ? (
+            <Handrails propertyId={id} />
+          ) : expandedSection === 'static-lines' ? (
+            <StaticLines propertyId={id} />
           ) : (
             <div className="coming-soon-section">
               <h1>{expandedSection.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>

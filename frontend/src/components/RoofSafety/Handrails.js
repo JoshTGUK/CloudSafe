@@ -18,13 +18,130 @@ export default function Handrails({ propertyId }) {
 
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3006';
 
-  // Add your fetch, create, edit, delete functions here
+  const fetchHandrailsData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+      
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/properties/${propertyId}/handrails`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.status === 404) {
+          console.log('Using mock data as endpoint is not available yet');
+          // Mock data for development
+          const mockData = [
+            {
+              id: 1,
+              property_id: propertyId,
+              location_description: 'Roof Edge - North Side',
+              type: 'Fixed',
+              status: 'Pass',
+              last_inspection_date: '2024-02-15',
+              next_inspection_date: '2024-08-15',
+              height: '1.1m',
+              material: 'Galvanized Steel',
+              length: '45m',
+              notes: 'Annual inspection completed'
+            },
+            {
+              id: 2,
+              property_id: propertyId,
+              location_description: 'Plant Room Perimeter',
+              type: 'Collapsible',
+              status: 'Pending',
+              last_inspection_date: '2024-01-20',
+              next_inspection_date: '2024-07-20',
+              height: '1.0m',
+              material: 'Aluminum',
+              length: '30m',
+              notes: 'Hinge mechanism needs lubrication'
+            }
+          ];
+
+          const formattedData = mockData.map(handrail => ({
+            id: handrail.id,
+            propertyId: handrail.property_id,
+            location: handrail.location_description,
+            type: handrail.type,
+            status: handrail.status,
+            lastTestDate: new Date(handrail.last_inspection_date).toLocaleDateString(),
+            nextTestDate: new Date(handrail.next_inspection_date).toLocaleDateString(),
+            height: handrail.height,
+            material: handrail.material,
+            length: handrail.length,
+            notes: handrail.notes
+          }));
+
+          setHandrails(formattedData);
+          setLoading(false);
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch handrails: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const handrailsArray = Array.isArray(data) ? data : [data];
+        
+        const formattedData = handrailsArray.map(handrail => ({
+          id: handrail.id,
+          propertyId: handrail.property_id,
+          location: handrail.location_description,
+          type: handrail.type,
+          status: handrail.status,
+          lastTestDate: new Date(handrail.last_inspection_date).toLocaleDateString(),
+          nextTestDate: new Date(handrail.next_inspection_date).toLocaleDateString(),
+          height: handrail.height,
+          material: handrail.material,
+          length: handrail.length,
+          notes: handrail.notes
+        }));
+
+        setHandrails(formattedData);
+
+      } catch (error) {
+        console.error('Error fetching handrails:', error);
+        throw error;
+      }
+    } catch (err) {
+      console.error('Error in fetchHandrailsData:', err);
+      setError(err.message);
+      toast.error(err.message || 'Failed to fetch handrails');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (propertyId) {
-      // Add your fetch function call here
+      fetchHandrailsData();
     }
   }, [propertyId]);
+
+  const handleStatusUpdate = async (handrailId, newStatus) => {
+    try {
+      const updatedHandrails = handrails.map(handrail =>
+        handrail.id === handrailId ? { ...handrail, status: newStatus } : handrail
+      );
+      setHandrails(updatedHandrails);
+      toast.success('Status updated successfully');
+    } catch (error) {
+      console.error('Error updating status:', error);
+      toast.error('Failed to update status');
+    }
+  };
 
   if (loading) return <div className="loading-spinner">Loading...</div>;
   if (error) return <div className="error-message">{error}</div>;
@@ -63,6 +180,9 @@ export default function Handrails({ propertyId }) {
                 <th>Status</th>
                 <th>Last Test Date</th>
                 <th>Next Test Date</th>
+                <th>Height</th>
+                <th>Material</th>
+                <th>Length</th>
                 <th>Actions</th>
                 <th>Edit</th>
               </tr>
@@ -76,22 +196,33 @@ export default function Handrails({ propertyId }) {
                   <td>
                     <select
                       value={handrail.status}
+                      onChange={(e) => handleStatusUpdate(handrail.id, e.target.value)}
                       className={`status-select ${handrail.status.toLowerCase()}`}
                     >
                       <option value="Unknown">Unknown</option>
-                      <option value="Passed">Passed</option>
-                      <option value="Failed">Failed</option>
+                      <option value="Pass">Pass</option>
+                      <option value="Fail">Fail</option>
+                      <option value="Pending">Pending</option>
                     </select>
                   </td>
                   <td>{handrail.lastTestDate}</td>
                   <td>{handrail.nextTestDate}</td>
+                  <td>{handrail.height}</td>
+                  <td>{handrail.material}</td>
+                  <td>{handrail.length}</td>
                   <td>
                     <button className="btn btn-secondary">
                       View Test Data
                     </button>
                   </td>
                   <td>
-                    <button className="edit-btn">
+                    <button 
+                      className="edit-btn"
+                      onClick={() => {
+                        setEditingHandrail(handrail);
+                        setShowEditModal(true);
+                      }}
+                    >
                       <i className="fas fa-pencil-alt"></i>
                     </button>
                   </td>

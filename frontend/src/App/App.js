@@ -9,6 +9,7 @@ import RoofSafetyDashboard from '../components/RoofSafety/RoofSafetyDashboard';
 import DavitBases from '../components/RoofSafety/DavitBases';
 import AccountSettings from '../components/AccountSettings/AccountSettings';
 import Documents from '../components/Documents/Documents';
+import StaffSafety from '../components/StaffSafety/StaffSafety';
 import './App.css';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/roof-safety/:id" element={<RoofSafety />} />
           <Route path="/roof-safety/:id/dashboard" element={<RoofSafetyDashboard />} />
           <Route path="/roof-safety/:id/davit-bases" element={<DavitBases />} />
+          <Route path="/properties/:id/staff-safety" element={<StaffSafety />} />
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/documents" element={<Documents />} />
         </Routes>
