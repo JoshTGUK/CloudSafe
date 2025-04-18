@@ -27,7 +27,6 @@ export default function Handrails({ propertyId }) {
       if (!token) {
         throw new Error('No authentication token found');
       }
-      
 
       try {
         const response = await fetch(`${API_BASE_URL}/api/properties/${propertyId}/handrails`, {
