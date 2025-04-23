@@ -1,0 +1,162 @@
+.documentation-container {
+    padding: 24px;
+}
+
+.documentation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header-content h1 {
+    font-size: 24px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.header-content p {
+    color: #637587;
+    font-size: 14px;
+}
+
+.upload-doc-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.upload-doc-btn:hover {
+    background: #1565c0;
+}
+
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.document-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.doc-icon {
+    font-size: 32px;
+    color: #1A80E5;
+}
+
+.doc-icon .file-icon.pdf {
+    color: #f44336;
+}
+
+.doc-icon .file-icon.image {
+    color: #4caf50;
+}
+
+.doc-content {
+    flex: 1;
+}
+
+.doc-content h3 {
+    font-size: 16px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.doc-info {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.doc-info span {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f8f9fa;
+}
+
+.doc-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    color: #637587;
+    font-size: 12px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.doc-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn, .download-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn {
+    background: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    color: #637587;
+}
+
+.download-btn {
+    background: #1A80E5;
+    border: none;
+    color: white;
+}
+
+.view-btn:hover {
+    background: #e9ecef;
+}
+
+.download-btn:hover {
+    background: #1565c0;
+}
+
+@media (max-width: 768px) {
+    .documentation-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .upload-doc-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .documents-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-filter-bar {
+        flex-direction: column;
+    }
+} 

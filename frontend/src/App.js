@@ -1,12 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RoofSafety from './components/RoofSafety/RoofSafety';
 
 function App() {
     return (
         <div className="App">
-            <Outlet /> {/* This will render the child routes */}
+            <Outlet />
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

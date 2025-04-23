@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import StaffSafety from './components/StaffSafety/StaffSafety';
+import EquipmentSafety from './components/EquipmentSafety/EquipmentSafety';
 
 // Define routes
 const routes = [
@@ -64,6 +65,11 @@ const routes = [
       {
         path: "properties/:id/staff-safety",
         element: <ProtectedRoute><StaffSafety /></ProtectedRoute>,
+        errorElement: <ErrorPage />
+      },
+      {
+        path: "equipment-safety/*",
+        element: <ProtectedRoute><EquipmentSafety /></ProtectedRoute>,
         errorElement: <ErrorPage />
       }
     ]

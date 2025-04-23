@@ -1,0 +1,150 @@
+.inventory-container {
+    padding: 24px;
+}
+
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.inventory-header h1 {
+    font-size: 24px;
+    color: #1a1f36;
+}
+
+.add-equipment-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-equipment-btn:hover {
+    background: #1565c0;
+}
+
+.search-filter-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 8px;
+    padding: 0 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-bar svg {
+    color: #637587;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: white;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: #f8f9fa;
+    border-color: #1A80E5;
+}
+
+.equipment-table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f8f9fa;
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    color: #1a1f36;
+    font-weight: 500;
+}
+
+td {
+    padding: 16px;
+    border-top: 1px solid #e1e4e8;
+    font-size: 14px;
+    color: #637587;
+}
+
+.status-icon {
+    font-size: 12px;
+}
+
+.status-icon.active {
+    color: #4caf50;
+}
+
+.status-icon.inactive {
+    color: #637587;
+}
+
+.status-icon.maintenance {
+    color: #ff9800;
+}
+
+@media (max-width: 1024px) {
+    .equipment-table {
+        overflow-x: auto;
+    }
+    
+    table {
+        min-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inventory-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .search-filter-bar {
+        flex-direction: column;
+    }
+
+    .add-equipment-btn {
+        width: 100%;
+        justify-content: center;
+    }
+} 

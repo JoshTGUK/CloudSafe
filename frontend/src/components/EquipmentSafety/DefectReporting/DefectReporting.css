@@ -1,0 +1,131 @@
+.defect-reporting-container {
+    padding: 24px;
+}
+
+.defect-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header-content h1 {
+    font-size: 24px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.header-content p {
+    color: #637587;
+    font-size: 14px;
+}
+
+.report-defect-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.report-defect-btn:hover {
+    background: #1565c0;
+}
+
+.defect-reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.defect-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.priority-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.priority-high {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+}
+
+.priority-medium {
+    background: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+}
+
+.priority-low {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+}
+
+.assignment-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0;
+    padding: 8px 0;
+    border-top: 1px solid #e1e4e8;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.photos-btn, .update-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.photos-btn {
+    background: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    color: #637587;
+}
+
+.update-btn {
+    background: #1A80E5;
+    border: none;
+    color: white;
+}
+
+.photos-btn:hover {
+    background: #e9ecef;
+}
+
+.update-btn:hover {
+    background: #1565c0;
+}
+
+@media (max-width: 768px) {
+    .defect-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .report-defect-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .defect-reports-grid {
+        grid-template-columns: 1fr;
+    }
+} 

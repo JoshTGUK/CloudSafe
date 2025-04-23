@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import placeholderImage from '../../assets/placeholder.png';
 import './PropertyDashboard.css';
 import MainHeader from '../common/MainHeader/MainHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTools } from '@fortawesome/free-solid-svg-icons';
 
 export default function PropertyDashboard() {
   const [roofSafetyIssues, setRoofSafetyIssues] = useState(0);
@@ -23,7 +25,7 @@ export default function PropertyDashboard() {
     { id: 'fire', icon: '🔥', label: 'Fire Safety' },
     { id: 'roof', icon: '🏠', label: 'Roof Safety' },
     { id: 'staff', icon: '👥', label: 'Staff Safety' },
-    { id: 'equipment', icon: '⚙️', label: 'Equipment Safety' },
+    { id: 'equipment', icon: '⚙️', label: 'Equipment Safety', path: '/equipment-safety' },
     { id: 'electrical', icon: '⚡', label: 'Electrical Safety' },
     { id: 'building', icon: '🏗️', label: 'Building Maintenance' },
     { id: 'emergency', icon: '🚨', label: 'Emergency Preparedness' }
@@ -147,6 +149,9 @@ export default function PropertyDashboard() {
         break;
       case 'staff':
         navigate(`/properties/${id}/staff-safety`);
+        break;
+      case 'equipment':
+        navigate('/equipment-safety');
         break;
       case 'profile':
         navigate(`${baseUrl}/${id}/profile`);
