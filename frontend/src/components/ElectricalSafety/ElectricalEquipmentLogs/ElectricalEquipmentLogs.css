@@ -1,0 +1,43 @@
+.equipment-logs {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+.add-log-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-log-btn:hover {
+    background: #1565c0;
+}
+
+/* Form grid layout for the modal */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Add specific styles for equipment logs */
+.logs-table td {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Rest of the styles match RCDTesting.css */ 

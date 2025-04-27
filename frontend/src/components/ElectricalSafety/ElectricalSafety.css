@@ -1,0 +1,72 @@
+.electrical-safety {
+    min-height: 100vh;
+    background: #f5f6fa;
+}
+
+.electrical-safety-content {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e1e4e8;
+    padding: 24px 16px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    border-radius: 8px;
+    color: #637587;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+    background: #f0f7ff;
+    color: #1A80E5;
+}
+
+.nav-item.active {
+    background: #1A80E5;
+    color: white;
+}
+
+.nav-item svg {
+    width: 20px;
+}
+
+.electrical-main {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .electrical-safety-content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .electrical-main {
+        padding: 16px;
+    }
+} 

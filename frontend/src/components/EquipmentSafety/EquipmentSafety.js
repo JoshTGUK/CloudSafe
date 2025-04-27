@@ -7,6 +7,7 @@ import InspectionLogs from './InspectionLogs/InspectionLogs';
 import MaintenanceRecords from './MaintenanceRecords/MaintenanceRecords';
 import DefectReporting from './DefectReporting/DefectReporting';
 import Documentation from './Documentation/Documentation';
+import ComplianceDashboard from './ComplianceDashboard/ComplianceDashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faChartLine,
@@ -14,7 +15,8 @@ import {
     faClipboardCheck,
     faTools,
     faExclamationTriangle,
-    faFileAlt
+    faFileAlt,
+    faCheckSquare
 } from '@fortawesome/free-solid-svg-icons';
 import './EquipmentSafety.css';
 
@@ -28,6 +30,12 @@ const EquipmentSafety = () => {
             label: 'Dashboard', 
             icon: faChartLine,
             path: ''
+        },
+        { 
+            id: 'compliance',
+            label: 'Compliance Dashboard', 
+            icon: faCheckSquare,
+            path: 'compliance'
         },
         { 
             id: 'inventory', 
@@ -90,6 +98,7 @@ const EquipmentSafety = () => {
                 <main className="equipment-main">
                     <Routes>
                         <Route path="/" element={<EquipmentSafetyDashboard />} />
+                        <Route path="/compliance" element={<ComplianceDashboard />} />
                         <Route path="/inventory" element={<EquipmentInventory />} />
                         <Route path="/inspections" element={<InspectionLogs />} />
                         <Route path="/maintenance" element={<MaintenanceRecords />} />

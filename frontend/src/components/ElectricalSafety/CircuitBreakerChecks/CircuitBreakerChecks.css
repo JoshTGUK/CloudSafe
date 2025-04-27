@@ -1,0 +1,48 @@
+.circuit-breaker-checks {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+/* Rest of the styling matches RCDTesting.css with class names updated */
+.add-check-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-check-btn:hover {
+    background: #1565c0;
+}
+
+.checks-table-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.checks-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Add textarea styles */
+.form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    font-size: 14px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Rest of the styles match RCDTesting.css */ 

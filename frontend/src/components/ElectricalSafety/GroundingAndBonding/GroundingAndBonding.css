@@ -1,0 +1,29 @@
+.grounding-bonding {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+.add-inspection-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-inspection-btn:hover {
+    background: #1565c0;
+}
+
+/* Add status badge colors for grounding results */
+.status-badge.attention-required {
+    background: #fff3e0;
+    color: #ff9800;
+}
+
+/* Rest of the styles match RCDTesting.css */ 
