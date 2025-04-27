@@ -1,0 +1,40 @@
+.fuse-board-inspections {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+/* Copy all styles from RCDTesting.css but update class names */
+.add-inspection-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-inspection-btn:hover {
+    background: #1565c0;
+}
+
+/* Add status badge colors for condition */
+.status-badge.good {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.status-badge.fair {
+    background: #fff3e0;
+    color: #ff9800;
+}
+
+.status-badge.poor {
+    background: #ffebee;
+    color: #f44336;
+}
+
+/* Rest of the styles match RCDTesting.css */ 

@@ -274,4 +274,172 @@
     .maintenance-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.notifications-btn {
+    position: relative;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #1A80E5;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.notifications-panel {
+    position: absolute;
+    top: 80px;
+    right: 32px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.notification-item.overdue {
+    background: #fff3f3;
+}
+
+.notification-item.upcoming {
+    background: #f0f7ff;
+}
+
+.notification-date {
+    font-size: 12px;
+    color: #637587;
+}
+
+.reports-section {
+    margin: 16px 0;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.report-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px dashed #1A80E5;
+    border-radius: 4px;
+    color: #1A80E5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-btn:hover {
+    background: #f0f7ff;
+}
+
+.priority-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.priority-tag.high {
+    background: #fff3f3;
+    color: #ff4444;
+}
+
+.priority-tag.medium {
+    background: #fff8e6;
+    color: #ff9800;
+}
+
+.priority-tag.low {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+.assign-btn {
+    padding: 6px 12px;
+    background: #f0f7ff;
+    border: 1px solid #1A80E5;
+    border-radius: 4px;
+    color: #1A80E5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.assign-btn:hover {
+    background: #1A80E5;
+    color: white;
+}
+
+.overdue {
+    color: #ff4444;
+}
+
+.overdue-icon {
+    color: #ff4444;
+    margin-right: 8px;
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notifications-panel {
+        right: 16px;
+        width: calc(100% - 32px);
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .assign-btn,
+    .details-btn {
+        width: 100%;
+    }
 } 

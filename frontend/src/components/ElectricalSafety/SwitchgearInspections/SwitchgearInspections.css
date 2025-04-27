@@ -1,0 +1,69 @@
+.switchgear-inspections {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header-content h1 {
+    font-size: 24px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.header-content p {
+    color: #637587;
+    font-size: 14px;
+}
+
+.add-inspection-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-inspection-btn:hover {
+    background: #1565c0;
+}
+
+.info-panel {
+    background: #f8f9fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.info-icon {
+    font-size: 24px;
+    color: #1A80E5;
+}
+
+.info-content h3 {
+    font-size: 16px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.info-content p {
+    color: #637587;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Rest of the CSS remains the same as LoadTesting.css */ 

@@ -1,0 +1,274 @@
+.load-testing {
+    padding: 24px;
+    background: #f5f6fa;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header-content h1 {
+    font-size: 24px;
+    color: #1a1f36;
+    margin-bottom: 8px;
+}
+
+.header-content p {
+    color: #637587;
+    font-size: 14px;
+}
+
+.add-test-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #1A80E5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-test-btn:hover {
+    background: #1565c0;
+}
+
+.overview-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.overview-card {
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.card-icon {
+    font-size: 24px;
+    padding: 16px;
+    background: #f0f7ff;
+    color: #1A80E5;
+    border-radius: 12px;
+}
+
+.card-icon.success {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.card-icon.danger {
+    background: #ffebee;
+    color: #f44336;
+}
+
+.card-content h3 {
+    font-size: 14px;
+    color: #637587;
+    margin-bottom: 8px;
+}
+
+.card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1f36;
+}
+
+.tests-table-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+}
+
+.tests-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tests-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #637587;
+    border-bottom: 2px solid #e1e4e8;
+}
+
+.tests-table td {
+    padding: 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+.load-percentage {
+    position: relative;
+    width: 150px;
+    height: 24px;
+    background: #f0f2f5;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    position: absolute;
+    height: 100%;
+    background: #4caf50;
+    transition: width 0.3s ease;
+}
+
+.progress-bar.danger {
+    background: #f44336;
+}
+
+.load-percentage span {
+    position: relative;
+    z-index: 1;
+    padding: 0 8px;
+    color: #1a1f36;
+    font-weight: 500;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.pass {
+    background: #e8f5e9;
+    color: #4caf50;
+}
+
+.status-badge.fail {
+    background: #ffebee;
+    color: #f44336;
+}
+
+.view-btn {
+    padding: 6px 12px;
+    background: #f0f7ff;
+    color: #1A80E5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+    background: #1A80E5;
+    color: white;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.add-test-modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.add-test-modal h2 {
+    margin-bottom: 24px;
+    color: #1a1f36;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1a1f36;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.cancel-btn,
+.submit-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: white;
+    border: 1px solid #e1e4e8;
+    color: #637587;
+}
+
+.submit-btn {
+    background: #1A80E5;
+    border: none;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .load-testing {
+        padding: 16px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .add-test-btn {
+        width: 100%;
+    }
+
+    .overview-section {
+        grid-template-columns: 1fr;
+    }
+} 

@@ -153,6 +153,9 @@ export default function PropertyDashboard() {
       case 'equipment':
         navigate('/equipment-safety');
         break;
+      case 'electrical':
+        navigate('/electrical-safety');
+        break;
       case 'profile':
         navigate(`${baseUrl}/${id}/profile`);
         break;
