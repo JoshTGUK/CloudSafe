@@ -1,0 +1,71 @@
+/* Extend shared maintenance styles */
+.service-section,
+.issues-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styles */
+.service-table,
+.issues-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.service-table th,
+.service-table td,
+.issues-table th,
+.issues-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Priority Pills */
+.priority-pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.priority-pill.high {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.priority-pill.medium {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.priority-pill.low {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Status Indicators */
+.status-pill.investigating {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.status-pill.completed {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .service-table,
+  .issues-table {
+    min-width: 800px;
+  }
+} 

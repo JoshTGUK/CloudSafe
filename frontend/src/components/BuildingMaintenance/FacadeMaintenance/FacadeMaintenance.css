@@ -1,0 +1,92 @@
+/* Extend shared maintenance styles */
+.inspection-section,
+.issues-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Issues Grid */
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.issue-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.issue-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.issue-details p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Severity Pills */
+.severity-pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.severity-pill.high {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.severity-pill.medium {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.severity-pill.low {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Status Indicators */
+.status-pill.monitoring {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.status-pill.passed {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .inspection-table {
+    min-width: 800px;
+  }
+  
+  .issues-grid {
+    grid-template-columns: 1fr;
+  }
+} 

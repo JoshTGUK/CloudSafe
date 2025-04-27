@@ -1,0 +1,94 @@
+/* Extend shared maintenance styles */
+.maintenance-section,
+.certificates-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Table Styles */
+.maintenance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.maintenance-table th,
+.maintenance-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Certificate Cards */
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.certificate-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-background);
+}
+
+.certificate-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--color-success-light);
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.certificate-details {
+  flex: 1;
+}
+
+.certificate-details h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.certificate-details p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Status Indicators */
+.status-pill.passed {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.status-pill.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .maintenance-table {
+    min-width: 800px;
+  }
+  
+  .certificates-grid {
+    grid-template-columns: 1fr;
+  }
+} 

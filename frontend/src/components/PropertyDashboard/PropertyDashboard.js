@@ -150,6 +150,9 @@ export default function PropertyDashboard() {
       case 'staff':
         navigate(`/properties/${id}/staff-safety`);
         break;
+      case 'building':
+        navigate(`/properties/${id}/building-maintenance`);
+        break;
       case 'equipment':
         navigate('/equipment-safety');
         break;
