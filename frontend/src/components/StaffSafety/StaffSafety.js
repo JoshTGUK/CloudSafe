@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faChartLine, 
@@ -10,7 +10,8 @@ import {
     faCertificate,
     faHardHat,
     faChevronRight,
-    faChevronDown
+    faChevronDown,
+    faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 import StaffSafetyDashboard from './StaffSafetyDashboard';
 import TrainingRecords from './TrainingRecords';
@@ -24,6 +25,7 @@ import './StaffSafety.css';
 
 const StaffSafety = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [expandedSection, setExpandedSection] = useState('dashboard');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -97,6 +99,9 @@ const StaffSafety = () => {
             <MainHeader />
             <div className="staff-safety-content">
                 <div className="staff-safety-sidebar">
+                    <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
+                        <FontAwesomeIcon icon={faArrowLeft} /> Back
+                    </button>
                     <div className="staff-safety-menu">
                         {sidebarSections.map((section) => (
                             <div

@@ -3,6 +3,19 @@ import './RoofSafety.css';
 import { useParams, useNavigate, Routes, Route, Navigate } from 'react-router-dom';
 import MainHeader from '../common/MainHeader/MainHeader';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChartLine,
+  faCogs,
+  faLadderWater,
+  faGripLines,
+  faHandHolding,
+  faAnchor,
+  faBolt,
+  faChevronRight,
+  faChevronDown,
+  faArrowLeft
+} from '@fortawesome/free-solid-svg-icons';
 
 // Import all safety components
 import Cradles from './Cradles';
@@ -13,6 +26,57 @@ import StaticLines from './Staticlines';
 import AnchorPoints from './AnchorPoints';
 import RoofSafetyDashboard from './RoofSafetyDashboard';
 import DavitBases from './DavitBases';
+
+const sidebarSections = [
+  {
+    id: 'dashboard',
+    title: 'Roof Dashboard',
+    icon: faChartLine,
+    component: RoofSafetyDashboard
+  },
+  {
+    id: 'cradles',
+    title: 'Cradles',
+    icon: faCogs,
+    component: Cradles
+  },
+  {
+    id: 'ladders',
+    title: 'Ladders',
+    icon: faLadderWater,
+    component: Ladders
+  },
+  {
+    id: 'walkways',
+    title: 'Walkways',
+    icon: faGripLines,
+    component: Walkways
+  },
+  {
+    id: 'handrails',
+    title: 'Handrails',
+    icon: faHandHolding,
+    component: Handrails
+  },
+  {
+    id: 'staticlines',
+    title: 'Static Lines',
+    icon: faBolt,
+    component: StaticLines
+  },
+  {
+    id: 'anchorpoints',
+    title: 'Anchor Points',
+    icon: faAnchor,
+    component: AnchorPoints
+  },
+  {
+    id: 'davitbases',
+    title: 'Davit Bases',
+    icon: faCogs,
+    component: DavitBases
+  }
+];
 
 export default function RoofSafety() {
   const { id } = useParams();
@@ -282,54 +346,43 @@ export default function RoofSafety() {
     }
   };
 
-  const handleSectionClick = (sectionId) => {
-    setExpandedSection(sectionId);
+  const handleSectionClick = (section) => {
+    setExpandedSection(section);
     setError(null);
-    if (sectionId === 'dashboard') {
+    if (section === 'dashboard') {
       // Dashboard doesn't need to fetch specific data as it will fetch its own
       setAnchorPoints([]);
       setCradles([]);
-    } else if (sectionId === 'anchor-points') {
+    } else if (section === 'anchorpoints') {
       fetchRoofSafetyData();
-    } else if (sectionId === 'cradles') {
+    } else if (section === 'cradles') {
       fetchCradlesData();
-    } else if (sectionId === 'davit-bases') {
+    } else if (section === 'davitbases') {
       // The DavitBases component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
-    } else if (sectionId === 'ladders') {
+    } else if (section === 'ladders') {
       // The Ladders component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
-    } else if (sectionId === 'walkways') {
+    } else if (section === 'walkways') {
       // The Walkways component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
-    } else if (sectionId === 'handrails') {
+    } else if (section === 'handrails') {
       // The Handrails component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
-    } else if (sectionId === 'static-lines') {
+    } else if (section === 'staticlines') {
       // The StaticLines component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
     } else {
       setAnchorPoints([]);
       setCradles([]);
-      toast.info(`${sectionId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} section is coming soon!`);
+      toast.info(`${section.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} section is coming soon!`);
     }
   };
-
-  const sidebarSections = [
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'anchor-points', label: 'Anchor Points' },
-    { id: 'cradles', label: 'Cradles' },
-    { id: 'davit-bases', label: 'Davit Bases' },
-    { id: 'ladders', label: 'Ladders' },
-    { id: 'walkways', label: 'Walkways' },
-    { id: 'handrails', label: 'Handrails' },
-    { id: 'static-lines', label: 'Static Lines' },
-  ];
 
   const fetchRoofSafetyData = async () => {
     try {
@@ -605,285 +658,50 @@ export default function RoofSafety() {
     }
   }, [id]);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">Loading...</div>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    const section = sidebarSections.find(s => s.id === expandedSection);
+    if (!section) return null;
+    const Component = section.component;
+    return <Component propertyId={id} />;
+  };
 
-  if (error) {
-    return (
-      <div className="error-container">
-        <h2>Oops! Something went wrong</h2>
-        <p>{error}</p>
-        <button onClick={() => window.location.reload()}>Try Again</button>
-      </div>
-    );
-  }
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="roof-safety-container">
       <MainHeader />
-      <div className="page-content">
-        <div className="left-panel">
-          <h2>Roof Safety</h2>
-          <nav className="safety-nav">
+      <div className="roof-safety-content">
+        <div className="roof-safety-sidebar">
+          <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
+            <FontAwesomeIcon icon={faArrowLeft} /> Back
+          </button>
+          <div className="roof-safety-menu">
             {sidebarSections.map((section) => (
-              <button
+              <div
                 key={section.id}
-                className={`nav-item ${expandedSection === section.id ? 'active' : ''}`}
+                className={`roof-safety-menu-item ${expandedSection === section.id ? 'active' : ''}`}
                 onClick={() => handleSectionClick(section.id)}
-                data-section={section.id}
               >
-                <span className="nav-label">{section.label}</span>
-                <span className="arrow">›</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        <div className="main-panel">
-          {expandedSection === 'dashboard' ? (
-            <RoofSafetyDashboard />
-          ) : expandedSection === 'anchor-points' ? (
-            <div className="anchor-points-section">
-              <h1>Anchor Points</h1>
-              
-              <div className="search-controls">
-                <div className="search-bar">
-                  <i className="fas fa-search"></i>
-                  <input type="text" placeholder="Search anchor points" />
-                </div>
-                <div className="table-buttons">
-                  <button className="filter-btn">
-                    <i className="fas fa-filter"></i>
-                    Filter
-                  </button>
-                  <button 
-                    className="btn"
-                    onClick={() => setShowCreateModal(true)}
-                  >
-                    Create Anchor Point
-                  </button>
-                </div>
-              </div>
-
-              <div className="table-section" style={{ width: '100%', overflow: 'hidden' }}>
-                <div className="table-container" style={{ 
-                  width: '100%', 
-                  overflowX: 'auto', 
-                  maxHeight: 'calc(100vh - 300px)',
-                  WebkitOverflowScrolling: 'touch'
-                }}>
-                  <table style={{ 
-                    width: '100%',
-                    minWidth: '800px',
-                    tableLayout: 'fixed'
-                  }}>
-                    <colgroup>
-                      <col style={{ width: '5%' }} /> {/* ID */}
-                      <col style={{ width: '10%' }} /> {/* Name */}
-                      <col style={{ width: '25%' }} /> {/* Location */}
-                      <col style={{ width: '10%' }} /> {/* Type */}
-                      <col style={{ width: '10%' }} /> {/* Status */}
-                      <col style={{ width: '12%' }} /> {/* Last Test Date */}
-                      <col style={{ width: '12%' }} /> {/* Next Test Date */}
-                      <col style={{ width: '10%' }} /> {/* Actions */}
-                      <col style={{ width: '6%' }} /> {/* Edit */}
-                    </colgroup>
-                    <thead>
-                      <tr>
-                        <th style={{ padding: '12px 8px' }}>ID</th>
-                        <th style={{ padding: '12px 8px' }}>Name</th>
-                        <th style={{ padding: '12px 8px' }}>Location</th>
-                        <th style={{ padding: '12px 8px' }}>Type</th>
-                        <th style={{ padding: '12px 8px' }}>Status</th>
-                        <th style={{ padding: '12px 8px' }}>Last Test Date</th>
-                        <th style={{ padding: '12px 8px' }}>Next Test Date</th>
-                        <th style={{ padding: '12px 8px' }}>Actions</th>
-                        <th style={{ padding: '12px 8px' }}>Edit</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {anchorPoints.map((point) => (
-                        <tr 
-                          key={point.id} 
-                          onClick={() => handleRowClick(point)}
-                          style={{ cursor: 'pointer' }}
-                          className="clickable-row"
-                        >
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{point.id}</td>
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{point.name}</td>
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{point.location}</td>
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{point.type}</td>
-                          <td style={{ padding: '8px' }}>
-                            <select
-                              value={point.status}
-                              onChange={(e) => handleStatusUpdate(point.id, e.target.value)}
-                              className={`status-select ${point.status.toLowerCase()}`}
-                              style={{ width: '100%' }}
-                            >
-                              <option value="Unknown">Unknown</option>
-                              <option value="Pass">Pass</option>
-                              <option value="Fail">Fail</option>
-                              <option value="Pending">Pending</option>
-                            </select>
-                          </td>
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap' }}>{point.lastTestDate}</td>
-                          <td style={{ padding: '8px', whiteSpace: 'nowrap' }}>{point.nextTestDate}</td>
-                          <td style={{ padding: '8px' }}>
-                            <button 
-                              className="btn btn-secondary"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleViewTestData(point);
-                              }}
-                              style={{ width: '100%', padding: '4px 8px' }}
-                            >
-                              View Test Data
-                            </button>
-                          </td>
-                          <td style={{ padding: '8px', textAlign: 'center' }}>
-                            <button 
-                              className="edit-btn"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleEditClick(point);
-                              }}
-                            >
-                              <i className="fas fa-pencil-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          ) : expandedSection === 'cradles' ? (
-            <div className="cradles-section">
-              <h1>Cradles</h1>
-              
-              <div className="search-controls">
-                <div className="search-bar">
-                  <i className="fas fa-search"></i>
-                  <input 
-                    type="text" 
-                    placeholder="Search cradles"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                <div className="roof-safety-menu-item-header">
+                  <FontAwesomeIcon icon={section.icon} className="roof-safety-menu-icon" />
+                  <span>{section.title}</span>
+                  <FontAwesomeIcon 
+                    icon={expandedSection === section.id ? faChevronDown : faChevronRight} 
+                    className="roof-safety-menu-arrow"
                   />
                 </div>
-                <div className="table-buttons">
-                  <button className="filter-btn">
-                    <i className="fas fa-filter"></i>
-                    Filter
-                  </button>
-                  <button 
-                    className="btn"
-                    onClick={() => {
-                      setNewCradle({
-                        location: '',
-                        type: 'Standard',
-                        lastTestDate: new Date().toISOString().split('T')[0],
-                        status: 'Unknown'
-                      });
-                      setShowCreateModal(true);
-                    }}
-                  >
-                    Create Cradle
-                  </button>
-                </div>
               </div>
-
-              <div className="table-section" style={{ width: '100%', overflow: 'hidden' }}>
-                <div className="table-container" style={{ width: '100%', overflowX: 'auto', maxHeight: 'calc(100vh - 300px)' }}>
-                  <table style={{ minWidth: '1200px' }}>
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Location</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Last Test Date</th>
-                        <th>Next Test Date</th>
-                        <th>Actions</th>
-                        <th>Edit</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cradles.filter(cradle =>
-                        cradle.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                        cradle.type.toLowerCase().includes(searchTerm.toLowerCase())
-                      ).map((cradle) => (
-                        <tr key={cradle.id}>
-                          <td>{cradle.id}</td>
-                          <td>{cradle.location}</td>
-                          <td>{cradle.type}</td>
-                          <td>
-                            <select
-                              value={cradle.status}
-                              onChange={(e) => handleCradleStatusUpdate(cradle.id, e.target.value)}
-                              className={`status-select ${cradle.status.toLowerCase()}`}
-                            >
-                              <option value="Unknown">Unknown</option>
-                              <option value="Pass">Pass</option>
-                              <option value="Fail">Fail</option>
-                              <option value="Pending">Pending</option>
-                            </select>
-                          </td>
-                          <td>{cradle.lastTestDate}</td>
-                          <td>{cradle.nextTestDate}</td>
-                          <td>
-                            <button 
-                              className="btn btn-secondary"
-                              onClick={() => handleViewTestData(cradle)}
-                            >
-                              View Test Data
-                            </button>
-                          </td>
-                          <td>
-                            <button 
-                              className="edit-btn"
-                              onClick={() => {
-                                setEditingCradle(cradle);
-                                setShowEditModal(true);
-                              }}
-                            >
-                              <i className="fas fa-pencil-alt"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          ) : expandedSection === 'davit-bases' ? (
-            <DavitBases />
-          ) : expandedSection === 'ladders' ? (
-            <Ladders propertyId={id} />
-          ) : expandedSection === 'walkways' ? (
-            <Walkways propertyId={id} />
-          ) : expandedSection === 'handrails' ? (
-            <Handrails propertyId={id} />
-          ) : expandedSection === 'static-lines' ? (
-            <StaticLines propertyId={id} />
-          ) : (
-            <div className="coming-soon-section">
-              <h1>{expandedSection.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
-              <p>This section is coming soon!</p>
-            </div>
-          )}
+            ))}
+          </div>
+        </div>
+        <div className="roof-safety-main">
+          {renderContent()}
         </div>
       </div>
 
       {/* Create Modal */}
-      {showCreateModal && expandedSection === 'anchor-points' && (
+      {showCreateModal && expandedSection === 'anchorpoints' && (
         <div className="modal-overlay">
           <div className="modal">
             <h2>Create Anchor Point</h2>
@@ -959,7 +777,7 @@ export default function RoofSafety() {
         </div>
       )}
 
-      {showEditModal && editingAnchorPoint && expandedSection === 'anchor-points' && (
+      {showEditModal && editingAnchorPoint && expandedSection === 'anchorpoints' && (
         <div className="modal-overlay">
           <div className="modal">
             <h2>Edit Anchor Point</h2>

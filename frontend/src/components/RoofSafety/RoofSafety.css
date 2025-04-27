@@ -553,7 +553,8 @@ td:first-child {
 .roof-safety-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  background-color: #f5f6fa;
 }
 
 /* Ensure all modals look consistent */
@@ -845,5 +846,94 @@ td:first-child {
 
 .upcoming-tests {
   display: none; /* Hide old upcoming tests section */
+}
+
+.roof-safety-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.roof-safety-sidebar {
+  width: 280px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.roof-safety-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.roof-safety-menu-item {
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roof-safety-menu-item:hover {
+  background-color: #f0f2f5;
+}
+
+.roof-safety-menu-item.active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.roof-safety-menu-item-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.roof-safety-menu-icon {
+  width: 20px;
+}
+
+.roof-safety-menu-arrow {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.roof-safety-main {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .roof-safety-content {
+    flex-direction: column;
+  }
+  .roof-safety-sidebar {
+    width: 100%;
+  }
+}
+
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #1F2937;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.sidebar-back-btn:hover {
+  color: #1574F6;
 }
 

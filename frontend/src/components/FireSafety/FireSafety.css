@@ -1,3 +1,300 @@
+/* Modern UI Styles */
+:root {
+  --primary-bg: #F8F9FB;
+  --primary-blue: #1574F6;
+  --secondary-gray: #E5E7EB;
+  --text-dark: #1F2937;
+  --text-light: #6B7280;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --radius-md: 12px;
+}
+
+.fire-safety-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f6fa;
+}
+
+.fire-safety-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.fire-safety-sidebar {
+  width: 280px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.fire-safety-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fire-safety-menu-item {
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fire-safety-menu-item:hover {
+  background-color: #f0f2f5;
+}
+
+.fire-safety-menu-item.active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.fire-safety-menu-item-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fire-safety-menu-icon {
+  width: 20px;
+}
+
+.fire-safety-menu-arrow {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.fire-safety-main {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.dashboard-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h2 {
+  color: var(--text-dark);
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #1264D9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--text-dark);
+  border: 1px solid var(--secondary-gray);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-gray);
+  transform: translateY(-1px);
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.equipment-card {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.equipment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.equipment-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  font-size: 1.5rem;
+}
+
+.equipment-info {
+  flex: 1;
+}
+
+.equipment-info h3 {
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.equipment-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.equipment-card.good .status-indicator {
+  background-color: #10B981;
+}
+
+.equipment-card.warning .status-indicator {
+  background-color: #F59E0B;
+}
+
+.equipment-card.error .status-indicator {
+  background-color: #EF4444;
+}
+
+.status-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.total-count {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.status-message {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.summary-panel {
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-panel h3 {
+  color: var(--text-dark);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.attention-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.attention-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--secondary-gray);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.attention-list li:last-child {
+  border-bottom: none;
+}
+
+.attention-list li.no-issues {
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.next-inspection-message {
+  color: var(--text-dark);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .fire-safety-content {
+    flex-direction: column;
+  }
+  .fire-safety-sidebar {
+    width: 100%;
+  }
+}
+
+/* Loading and Error States */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-dark);
+  font-size: 1.125rem;
+}
+
+.error {
+  color: #EF4444;
+}
+
 .fire-safety-page {
   min-height: 100vh;
   display: flex;
@@ -836,4 +1133,22 @@ td:first-child {
 
 .upcoming-tests {
   display: none; /* Hide old upcoming tests section */
+}
+
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #1F2937;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.sidebar-back-btn:hover {
+  color: #1574F6;
 }
