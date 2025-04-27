@@ -11,6 +11,9 @@ import FireSafety from './components/FireSafety/FireSafety';
 import StaffSafety from './components/StaffSafety/StaffSafety';
 import EquipmentSafety from './components/EquipmentSafety/EquipmentSafety';
 import ElectricalSafety from './components/ElectricalSafety/ElectricalSafety';
+import BuildingMaintenance from './components/BuildingMaintenance/BuildingMaintenance';
+import BuildingMaintenanceDashboard from './components/BuildingMaintenance/BuildingMaintenanceDashboard/BuildingMaintenanceDashboard';
+import GeneralMaintenance from './components/BuildingMaintenance/GeneralMaintenance/GeneralMaintenance';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -48,6 +51,24 @@ const router = createBrowserRouter([
       {
         path: "properties/:id",
         element: <ProtectedRoute><PropertyDashboard /></ProtectedRoute>
+      },
+      {
+        path: "properties/:id/building-maintenance/*",
+        element: <ProtectedRoute><BuildingMaintenance /></ProtectedRoute>,
+        children: [
+          {
+            index: true,
+            element: <BuildingMaintenanceDashboard />
+          },
+          {
+            path: "dashboard",
+            element: <BuildingMaintenanceDashboard />
+          },
+          {
+            path: "general",
+            element: <GeneralMaintenance />
+          }
+        ]
       },
       {
         path: "properties/:id/roof-safety",

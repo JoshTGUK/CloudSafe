@@ -1,0 +1,91 @@
+.inspection-history {
+  margin-top: 2rem;
+}
+
+.inspection-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.inspection-table th,
+.inspection-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Extend shared maintenance styles */
+.inspection-section,
+.damage-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Damage Reports Grid */
+.damage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.damage-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.damage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.damage-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.damage-details p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Status Indicators */
+.status-pill.monitoring {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.status-pill.passed {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.status-pill.completed {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .inspection-table {
+    min-width: 800px;
+  }
+  
+  .damage-grid {
+    grid-template-columns: 1fr;
+  }
+} 

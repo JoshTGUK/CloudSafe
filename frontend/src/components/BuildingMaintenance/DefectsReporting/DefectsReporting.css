@@ -1,0 +1,181 @@
+.defects-form {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--color-background);
+  border-radius: 8px;
+}
+
+.defects-list {
+  margin-top: 2rem;
+}
+
+.defect-item {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Form Styles */
+.report-section,
+.defects-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.defect-form {
+  max-width: 800px;
+  margin: 1rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-preview {
+  margin-top: 1rem;
+}
+
+.preview-item {
+  padding: 0.5rem;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.submit-button {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* Defects Grid */
+.defects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.defect-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.defect-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.defect-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.defect-title svg {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.defect-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.defect-details p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+/* Status Indicators */
+.status-pill.investigating {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.status-pill.scheduled {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* Priority Pills */
+.priority-pill.high {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.priority-pill.medium {
+  background-color: var(--color-warning-light);
+  color: var(--color-warning);
+}
+
+.priority-pill.low {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .defect-form {
+    max-width: 100%;
+  }
+  
+  .defects-grid {
+    grid-template-columns: 1fr;
+  }
+} 
