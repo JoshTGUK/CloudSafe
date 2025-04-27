@@ -15,6 +15,9 @@ import ErrorPage from './components/ErrorPage/ErrorPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import Tasks from './components/Tasks/Tasks';
+import Inspections from './components/Inspections/Inspections';
+import Documents from './components/Documents/Documents';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +68,18 @@ const router = createBrowserRouter([
       {
         path: "electrical-safety/*",
         element: <ProtectedRoute><ElectricalSafety /></ProtectedRoute>
+      },
+      {
+        path: "documents",
+        element: <ProtectedRoute><Documents /></ProtectedRoute>
+      },
+      {
+        path: "tasks",
+        element: <ProtectedRoute><Tasks /></ProtectedRoute>
+      },
+      {
+        path: "inspections",
+        element: <ProtectedRoute><Inspections /></ProtectedRoute>
       }
     ]
   }

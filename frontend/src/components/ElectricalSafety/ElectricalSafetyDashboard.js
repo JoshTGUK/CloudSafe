@@ -6,6 +6,7 @@ import {
     faCheckCircle,
     faClipboardCheck
 } from '@fortawesome/free-solid-svg-icons';
+import './ElectricalSafetyDashboard.css';
 
 const ElectricalSafetyDashboard = () => {
     const stats = {
@@ -16,7 +17,7 @@ const ElectricalSafetyDashboard = () => {
     };
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-content modern">
             <div className="page-header">
                 <div className="header-content">
                     <h1>Electrical Safety Dashboard</h1>
@@ -58,7 +59,7 @@ const ElectricalSafetyDashboard = () => {
                 </div>
             </div>
 
-            <div className="dashboard-content">
+            <div className="dashboard-section">
                 <div className="section-card">
                     <h2>Recent Activities</h2>
                     <div className="activity-list">
