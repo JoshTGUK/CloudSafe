@@ -24,55 +24,67 @@ import {
     faIndustry,
     faPlug as faGrounding,
     faPowerOff,
-    faCamera
+    faCamera,
+    faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 import './ElectricalSafety.css';
+
+const BASE_PATH = '/electrical-safety';
+
+const sidebarMenu = [
+    { name: 'Dashboard', path: '', icon: faBolt },
+    { name: 'RCD Testing', path: 'rcd-testing', icon: faPlug },
+    { name: 'Circuit Breaker Checks', path: 'circuit-breakers', icon: faCircleNodes },
+    { name: 'Fuse Board Inspections', path: 'fuse-boards', icon: faClipboardCheck },
+    { name: 'Electrical Equipment Logs', path: 'equipment-logs', icon: faToolbox },
+    { name: 'PAT Testing Logs', path: 'pat-testing', icon: faBarcode },
+    { name: 'Load Testing', path: 'load-testing', icon: faWeightHanging },
+    { name: 'Switchgear Inspections', path: 'switchgear', icon: faIndustry },
+    { name: 'Grounding and Bonding', path: 'grounding', icon: faGrounding },
+    { name: 'Emergency Power Systems', path: 'emergency-power', icon: faPowerOff },
+    { name: 'Thermal Imaging Reports', path: 'thermal-imaging', icon: faCamera }
+];
 
 const ElectricalSafety = () => {
     const navigate = useNavigate();
     const location = useLocation();
-
-    const sidebarMenu = [
-        { name: 'Dashboard', path: '', icon: faBolt },
-        { name: 'RCD Testing', path: 'rcd-testing', icon: faPlug },
-        { name: 'Circuit Breaker Checks', path: 'circuit-breakers', icon: faCircleNodes },
-        { name: 'Fuse Board Inspections', path: 'fuse-boards', icon: faClipboardCheck },
-        { name: 'Electrical Equipment Logs', path: 'equipment-logs', icon: faToolbox },
-        { name: 'PAT Testing Logs', path: 'pat-testing', icon: faBarcode },
-        { name: 'Load Testing', path: 'load-testing', icon: faWeightHanging },
-        { name: 'Switchgear Inspections', path: 'switchgear', icon: faIndustry },
-        { name: 'Grounding and Bonding', path: 'grounding', icon: faGrounding },
-        { name: 'Emergency Power Systems', path: 'emergency-power', icon: faPowerOff },
-        { name: 'Thermal Imaging Reports', path: 'thermal-imaging', icon: faCamera }
-    ];
+    const activeSection = sidebarMenu.find(item => {
+        if (item.path === '') {
+            return location.pathname === BASE_PATH || location.pathname === `${BASE_PATH}/`;
+        }
+        return location.pathname === `${BASE_PATH}/${item.path}`;
+    })?.name || 'Dashboard';
 
     const handleNavigation = (path) => {
-        navigate(path);
+        navigate(path ? `${BASE_PATH}/${path}` : BASE_PATH);
     };
 
     return (
-        <div className="electrical-safety">
+        <div className="electrical-safety-container">
             <MainHeader title="Electrical Safety" />
-            
             <div className="electrical-safety-content">
                 {/* Sidebar Navigation */}
-                <aside className="sidebar">
-                    <nav className="sidebar-nav">
+                <aside className="electrical-safety-sidebar">
+                    <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
+                        <FontAwesomeIcon icon={faArrowLeft} /> Back
+                    </button>
+                    <nav className="electrical-safety-menu">
                         {sidebarMenu.map((item, index) => (
-                            <button
+                            <div
                                 key={index}
-                                className={`nav-item ${location.pathname.includes(item.path) ? 'active' : ''}`}
+                                className={`electrical-safety-menu-item ${activeSection === item.name ? 'active' : ''}`}
                                 onClick={() => handleNavigation(item.path)}
                             >
-                                <FontAwesomeIcon icon={item.icon} />
-                                <span>{item.name}</span>
-                            </button>
+                                <div className="electrical-safety-menu-item-header">
+                                    <FontAwesomeIcon icon={item.icon} className="electrical-safety-menu-icon" />
+                                    <span>{item.name}</span>
+                                </div>
+                            </div>
                         ))}
                     </nav>
                 </aside>
-
                 {/* Main Content Area */}
-                <main className="electrical-main">
+                <main className="electrical-safety-main">
                     <Routes>
                         <Route index element={<ElectricalSafetyDashboard />} />
                         <Route path="rcd-testing" element={<RCDTesting />} />

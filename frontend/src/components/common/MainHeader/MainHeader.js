@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import allSafeLogo from '../../../assets/ALL-Safe-logo.png';
 import './MainHeader.css';
 
@@ -12,6 +12,12 @@ const UserAvatar = () => (
 export default function MainHeader() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract property id from URL if present
+  const propertyMatch = location.pathname.match(/\/properties\/(\d+)/);
+  const propertyId = propertyMatch ? propertyMatch[1] : null;
+  const documentsLink = propertyId ? `/properties/${propertyId}/documents` : '/documents';
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -25,7 +31,7 @@ export default function MainHeader() {
       <div className="header-right">
         <nav className="nav-links">
           <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          <Link to="/documents" className="nav-link">Documents</Link>
+          <Link to={documentsLink} className="nav-link">Documents</Link>
           <Link to="/inspections" className="nav-link">Inspections</Link>
           <Link to="/tasks" className="nav-link">Tasks</Link>
         </nav>

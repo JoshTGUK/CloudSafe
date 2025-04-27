@@ -10,6 +10,8 @@ import DavitBases from '../components/RoofSafety/DavitBases';
 import AccountSettings from '../components/AccountSettings/AccountSettings';
 import Documents from '../components/Documents/Documents';
 import StaffSafety from '../components/StaffSafety/StaffSafety';
+import Inspections from '../components/Inspections/Inspections';
+import Tasks from '../components/Tasks/Tasks';
 import './App.css';
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
           <Route path="/properties/:id/staff-safety" element={<StaffSafety />} />
           <Route path="/account-settings" element={<AccountSettings />} />
           <Route path="/documents" element={<Documents />} />
+          <Route path="/inspections" element={<Inspections />} />
+          <Route path="/tasks" element={<Tasks />} />
         </Routes>
       </div>
     </Router>
