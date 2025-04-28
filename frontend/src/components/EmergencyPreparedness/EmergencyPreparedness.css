@@ -1,0 +1,96 @@
+.emergency-preparedness-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f6fa;
+}
+
+.emergency-preparedness-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.emergency-preparedness-sidebar {
+  width: 280px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.emergency-preparedness-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emergency-preparedness-menu-item {
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emergency-preparedness-menu-item:hover {
+  background-color: #f0f2f5;
+}
+
+.emergency-preparedness-menu-item.active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.emergency-preparedness-menu-item-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.emergency-preparedness-menu-icon {
+  width: 20px;
+}
+
+.emergency-preparedness-menu-arrow {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.emergency-preparedness-main {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #1F2937;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.sidebar-back-btn:hover {
+  color: #1574F6;
+}
+
+@media (max-width: 768px) {
+  .emergency-preparedness-content {
+    flex-direction: column;
+  }
+
+  .emergency-preparedness-sidebar {
+    width: 100%;
+  }
+} 

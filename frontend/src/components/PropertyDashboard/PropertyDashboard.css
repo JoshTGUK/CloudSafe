@@ -292,3 +292,9 @@
   object-fit: cover;
   background-color: #f0f0f0;
 }
+
+.dashboard-content {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem;
+}

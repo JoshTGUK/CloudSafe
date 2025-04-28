@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './App/App';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -21,6 +21,13 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Tasks from './components/Tasks/Tasks';
 import Inspections from './components/Inspections/Inspections';
 import Documents from './components/Documents/Documents';
+import EmergencyPreparedness from './components/EmergencyPreparedness/EmergencyPreparedness';
+import EmergencyLighting from './components/EmergencyPreparedness/EmergencyLighting/EmergencyLighting';
+import EscapeRoutes from './components/EmergencyPreparedness/EscapeRoutes/EscapeRoutes';
+import AssemblyPoints from './components/EmergencyPreparedness/AssemblyPoints/AssemblyPoints';
+import EmergencyPlans from './components/EmergencyPreparedness/EmergencyPlans/EmergencyPlans';
+import Defibrillators from './components/EmergencyPreparedness/Defibrillators/Defibrillators';
+import IncidentReporting from './components/EmergencyPreparedness/IncidentReporting/IncidentReporting';
 
 const router = createBrowserRouter([
   {
@@ -101,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "inspections",
         element: <ProtectedRoute><Inspections /></ProtectedRoute>
+      },
+      {
+        path: "properties/:id/emergency-preparedness/*",
+        element: <ProtectedRoute><EmergencyPreparedness /></ProtectedRoute>
       }
     ]
   }
