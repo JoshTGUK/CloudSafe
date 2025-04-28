@@ -1,19 +1,29 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { FaArrowLeft, FaCog, FaBuilding, FaWrench, FaBell, FaLock, FaPalette } from 'react-icons/fa';
 import './SettingsSidebar.css';
 
 function SettingsSidebar() {
-  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleBack = () => {
+    navigate(`/propertydashboard/${id}`);
+  };
 
   return (
     <aside className="settings-sidebar">
-      <nav className="settings-nav">
+      <div className="settings-nav">
+        <button className="sidebar-back-btn" onClick={handleBack}>
+          <FaArrowLeft /> Back
+        </button>
+        
         <NavLink 
           to="/settings"
           end
           className={({ isActive }) => `settings-nav-item ${isActive ? 'active' : ''}`}
         >
-          <span className="settings-nav-icon">⚙️</span>
+          <span className="settings-nav-icon"><FaCog /></span>
           <span>Overview</span>
         </NavLink>
         <NavLink 
@@ -51,7 +61,7 @@ function SettingsSidebar() {
           <span className="settings-nav-icon">🎨</span>
           <span>Branding Settings</span>
         </NavLink>
-      </nav>
+      </div>
     </aside>
   );
 }

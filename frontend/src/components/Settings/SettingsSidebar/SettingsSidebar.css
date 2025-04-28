@@ -34,4 +34,25 @@
 .settings-nav-icon {
   margin-right: 12px;
   font-size: 18px;
+}
+
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+  width: 100%;
+  padding-left: 16px;
+}
+
+.sidebar-back-btn:hover {
+  color: var(--color-primary);
 } 

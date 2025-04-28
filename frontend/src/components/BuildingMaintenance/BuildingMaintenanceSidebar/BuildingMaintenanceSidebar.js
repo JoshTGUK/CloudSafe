@@ -1,16 +1,27 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { 
   FaWrench, FaHome, FaTint, FaTemperatureHigh, 
   FaArrowUp, FaWarehouse, FaBuilding, FaDoorOpen,
-  FaLightbulb, FaBug, FaPaintRoller, FaExclamationTriangle 
+  FaLightbulb, FaBug, FaPaintRoller, FaExclamationTriangle,
+  FaArrowLeft 
 } from 'react-icons/fa';
 import './BuildingMaintenanceSidebar.css';
 
 const BuildingMaintenanceSidebar = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const handleBack = () => {
+    navigate(`/propertydashboard/${id}`);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-content">
+        <button className="sidebar-back-btn" onClick={handleBack}>
+          <FaArrowLeft /> Back
+        </button>
         <nav className="sidebar-menu">
           <NavLink to="dashboard" className="sidebar-item">
             <span className="sidebar-icon"><FaHome /></span>

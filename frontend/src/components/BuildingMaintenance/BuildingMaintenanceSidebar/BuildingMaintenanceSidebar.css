@@ -100,4 +100,24 @@
   .sidebar-item {
     min-width: 100%;
   }
+}
+
+/* Add to existing styles */
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.sidebar-back-btn:hover {
+  color: var(--color-primary);
 } 
