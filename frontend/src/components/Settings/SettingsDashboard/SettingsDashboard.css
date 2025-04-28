@@ -1,0 +1,67 @@
+.settings-dashboard {
+  padding: 16px;
+}
+
+.settings-dashboard h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1f36;
+  margin-bottom: 24px;
+}
+
+.settings-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.settings-card {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+
+.settings-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.settings-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.settings-card-icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.settings-card h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1a1f36;
+  margin: 0;
+}
+
+.settings-card p {
+  color: #637587;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.settings-card-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #1a80e5;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.settings-card-link:hover {
+  background: #1565c0;
+} 

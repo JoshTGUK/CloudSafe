@@ -29,6 +29,12 @@ import EmergencyPlans from './components/EmergencyPreparedness/EmergencyPlans/Em
 import Defibrillators from './components/EmergencyPreparedness/Defibrillators/Defibrillators';
 import IncidentReporting from './components/EmergencyPreparedness/IncidentReporting/IncidentReporting';
 import Settings from './components/Settings/Settings';
+import SettingsDashboard from './components/Settings/SettingsDashboard/SettingsDashboard';
+import CompanyInformation from './components/Settings/CompanyInformation/CompanyInformation';
+import ApplicationSettings from './components/Settings/ApplicationSettings/ApplicationSettings';
+import NotificationSettings from './components/Settings/NotificationSettings/NotificationSettings';
+import SecuritySettings from './components/Settings/SecuritySettings/SecuritySettings';
+import BrandingSettings from './components/Settings/BrandingSettings/BrandingSettings';
 
 const router = createBrowserRouter([
   {
@@ -118,8 +124,34 @@ const router = createBrowserRouter([
         element: <ProtectedRoute><EmergencyPreparedness /></ProtectedRoute>
       },
       {
-        path: "settings",
-        element: <ProtectedRoute><Settings /></ProtectedRoute>
+        path: "settings/*",
+        element: <ProtectedRoute><Settings /></ProtectedRoute>,
+        children: [
+          {
+            index: true,
+            element: <SettingsDashboard />
+          },
+          {
+            path: "company",
+            element: <CompanyInformation />
+          },
+          {
+            path: "application",
+            element: <ApplicationSettings />
+          },
+          {
+            path: "notifications",
+            element: <NotificationSettings />
+          },
+          {
+            path: "security",
+            element: <SecuritySettings />
+          },
+          {
+            path: "branding",
+            element: <BrandingSettings />
+          }
+        ]
       }
     ]
   }

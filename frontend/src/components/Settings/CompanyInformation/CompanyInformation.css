@@ -1,0 +1,54 @@
+.company-info {
+  padding: 16px;
+}
+
+.company-info h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1f36;
+  margin-bottom: 24px;
+}
+
+.company-form {
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #1a1f36;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.save-button {
+  padding: 10px 20px;
+  background: #1a80e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background: #1565c0;
+} 
