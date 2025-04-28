@@ -28,12 +28,16 @@ import AssemblyPoints from './components/EmergencyPreparedness/AssemblyPoints/As
 import EmergencyPlans from './components/EmergencyPreparedness/EmergencyPlans/EmergencyPlans';
 import Defibrillators from './components/EmergencyPreparedness/Defibrillators/Defibrillators';
 import IncidentReporting from './components/EmergencyPreparedness/IncidentReporting/IncidentReporting';
+import Settings from './components/Settings/Settings';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    future: {
+      v7_skipActionErrorRevalidation: true
+    },
     children: [
       {
         index: true,
@@ -112,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: "properties/:id/emergency-preparedness/*",
         element: <ProtectedRoute><EmergencyPreparedness /></ProtectedRoute>
+      },
+      {
+        path: "settings",
+        element: <ProtectedRoute><Settings /></ProtectedRoute>
       }
     ]
   }
