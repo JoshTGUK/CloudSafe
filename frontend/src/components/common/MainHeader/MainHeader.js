@@ -27,7 +27,9 @@ export default function MainHeader() {
 
   return (
     <header className="dashboard-header">
-      <img src={allSafeLogo} alt="ALL Safe Logo" className="logo" />
+      <Link to="/dashboard">
+        <img src={allSafeLogo} alt="ALL Safe Logo" className="logo" />
+      </Link>
       <div className="header-right">
         <nav className="nav-links">
           <Link to="/dashboard" className="nav-link">Dashboard</Link>
