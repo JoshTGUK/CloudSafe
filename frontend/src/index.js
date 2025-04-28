@@ -35,6 +35,8 @@ import ApplicationSettings from './components/Settings/ApplicationSettings/Appli
 import NotificationSettings from './components/Settings/NotificationSettings/NotificationSettings';
 import SecuritySettings from './components/Settings/SecuritySettings/SecuritySettings';
 import BrandingSettings from './components/Settings/BrandingSettings/BrandingSettings';
+import ForgotPassword from './components/Login/ForgotPassword/ForgotPassword';
+import ResetPassword from './components/Login/ResetPassword/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -152,6 +154,14 @@ const router = createBrowserRouter([
             element: <BrandingSettings />
           }
         ]
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />
+      },
+      {
+        path: "reset-password/:token",
+        element: <ResetPassword />
       }
     ]
   }
