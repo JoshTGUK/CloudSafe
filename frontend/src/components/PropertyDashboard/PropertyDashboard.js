@@ -21,8 +21,8 @@ export default function PropertyDashboard() {
   const [propertyImage, setPropertyImage] = useState(null);
   const [imageError, setImageError] = useState(false);
 
-  // First, split the sidebar menu into two parts - main menu and bottom menu
-  const mainMenu = [
+  // Sidebar menu items
+  const sidebarMenu = [
     { id: 'overview', icon: '👁️', label: 'Overview' },
     { id: 'fire', icon: '🔥', label: 'Fire Safety' },
     { id: 'roof', icon: '🏠', label: 'Roof Safety' },
@@ -31,12 +31,6 @@ export default function PropertyDashboard() {
     { id: 'electrical', icon: '⚡', label: 'Electrical Safety' },
     { id: 'building', icon: '🏗️', label: 'Building Maintenance' },
     { id: 'emergency', icon: '🚨', label: 'Emergency Preparedness' }
-  ];
-
-  const bottomMenu = [
-    { id: 'inspection', icon: '📋', label: 'New Inspection', isAction: true },
-    { id: 'profile', icon: '📝', label: 'Property Profile' },
-    { id: 'settings', icon: '⚙️', label: 'Settings' }
   ];
 
   // Safety categories data
@@ -185,10 +179,22 @@ export default function PropertyDashboard() {
     <div className="property-dashboard">
       <MainHeader />
       
+      <div className="property-image-container">
+        <img 
+          src={imageError ? placeholderImage : propertyImage || placeholderImage}
+          onError={() => {
+            console.log('Image failed to load, using placeholder');
+            setImageError(true);
+          }}
+          alt={property.name}
+          className="property-image"
+        />
+      </div>
+      
       {/* Sidebar */}
       <aside className="sidebar">
         <nav className="sidebar-nav">
-          {mainMenu.map((item) => (
+          {sidebarMenu.map((item) => (
             <button
               key={item.id}
               className={`sidebar-item ${activeSection === item.id ? 'active' : ''}`}
@@ -199,30 +205,23 @@ export default function PropertyDashboard() {
             </button>
           ))}
         </nav>
-        
-        <div className="sidebar-property-image">
-          <img 
-            src={imageError ? placeholderImage : propertyImage || placeholderImage}
-            onError={() => {
-              console.log('Image failed to load, using placeholder');
-              setImageError(true);
-            }}
-            alt={property.name}
-          />
+        <div className="sidebar-bottom">
+          <button className="new-inspection-btn">New Inspection</button>
+          <button 
+            className="sidebar-item"
+            onClick={() => handleNavigation('profile')}
+          >
+            <span className="sidebar-icon">📋</span>
+            <span className="sidebar-label">Property Profile</span>
+          </button>
+          <button 
+            className="sidebar-item"
+            onClick={() => handleNavigation('settings')}
+          >
+            <span className="sidebar-icon">⚙️</span>
+            <span className="sidebar-label">Settings</span>
+          </button>
         </div>
-
-        <nav className="sidebar-bottom-nav">
-          {bottomMenu.map((item) => (
-            <button
-              key={item.id}
-              className={`sidebar-item ${activeSection === item.id ? 'active' : ''} ${item.isAction ? 'action-item' : ''}`}
-              onClick={() => handleNavigation(item.id)}
-            >
-              <span className="sidebar-icon">{item.icon}</span>
-              <span className="sidebar-label">{item.label}</span>
-            </button>
-          ))}
-        </nav>
       </aside>
 
       {/* Main Content */}
