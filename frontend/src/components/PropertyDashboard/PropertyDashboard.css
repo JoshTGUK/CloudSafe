@@ -1,8 +1,8 @@
 .property-dashboard {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 340px 1fr;
   grid-template-rows: auto 1fr;
-  height: calc(100vh - 80px);
+  height: 100vh;
   background: #f5f6fa;
   overflow: hidden;
 }
@@ -75,7 +75,34 @@
   border-right: 1px solid #e1e4e8;
   display: flex;
   flex-direction: column;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-bottom {
+  margin-top: 160px;
+  padding-top: 16px;
+  border-top: 1px solid #e1e4e8;
+}
+
+.sidebar-property-image {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.sidebar-property-image img {
+  width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .company-name {
@@ -85,17 +112,8 @@
   padding: 0 12px;
 }
 
-.sidebar-nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
-  margin-bottom: 100px;
-}
-
 .sidebar-item {
-  padding: 8px 10px;
+  padding: 8px 12px;
   background: none;
   border: none;
   width: 100%;
@@ -104,61 +122,44 @@
   display: flex;
   align-items: center;
   font: inherit;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 340px;
 }
 
 .sidebar-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: #f5f6fa;
 }
 
 .sidebar-item.active {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #e5e7eb;
+  border-radius: 8px;
+}
+
+.sidebar-item.action-item {
+  background: #1a80e5;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.sidebar-item.action-item:hover {
+  background: #1565c0;
 }
 
 .sidebar-icon {
   margin-right: 12px;
   width: 20px;
+  flex-shrink: 0;
 }
 
 .sidebar-label {
   font-size: 14px;
-}
-
-/* Bottom buttons section */
-.sidebar-bottom {
-  position: fixed;
-  bottom: 16px;
-  width: 248px;
-  background: white;
-  padding-top: 16px;
-  border-top: 1px solid #e1e4e8;
-}
-
-.new-inspection-btn {
-  width: 100%;
-  padding: 10px;
-  background: #1a80e5;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.new-inspection-btn:hover {
-  background: #1565c0;
-}
-
-/* Style the bottom sidebar items consistently */
-.sidebar-bottom .sidebar-item {
-  padding: 8px 10px;
-  margin-bottom: 4px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-
-.sidebar-bottom .sidebar-item:hover {
-  background-color: #f5f6fa;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
 }
 
 /* Main Content Styles */
@@ -166,7 +167,8 @@
   grid-row: 2;
   padding: 24px;
   overflow-y: auto;
-  height: 100%;
+  min-height: 100%;
+  background: #f5f6fa;
 }
 
 .content-header {
@@ -308,25 +310,11 @@
 }
 
 .property-image {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
+  display: none;
 }
 
 .property-image-container {
-  width: 100%;
-  max-width: 300px;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.property-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background-color: #f0f0f0;
+  display: none;
 }
 
 .dashboard-content {

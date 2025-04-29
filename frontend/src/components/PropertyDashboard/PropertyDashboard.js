@@ -21,8 +21,8 @@ export default function PropertyDashboard() {
   const [propertyImage, setPropertyImage] = useState(null);
   const [imageError, setImageError] = useState(false);
 
-  // Sidebar menu items
-  const sidebarMenu = [
+  // Split the menu items into two parts
+  const mainMenuItems = [
     { id: 'overview', icon: '👁️', label: 'Overview' },
     { id: 'fire', icon: '🔥', label: 'Fire Safety' },
     { id: 'roof', icon: '🏠', label: 'Roof Safety' },
@@ -31,6 +31,12 @@ export default function PropertyDashboard() {
     { id: 'electrical', icon: '⚡', label: 'Electrical Safety' },
     { id: 'building', icon: '🏗️', label: 'Building Maintenance' },
     { id: 'emergency', icon: '🚨', label: 'Emergency Preparedness' }
+  ];
+
+  const bottomMenuItems = [
+    { id: 'inspection', icon: '📋', label: 'New Inspection', isAction: true },
+    { id: 'profile', icon: '📝', label: 'Property Profile' },
+    { id: 'settings', icon: '⚙️', label: 'Settings' }
   ];
 
   // Safety categories data
@@ -194,7 +200,7 @@ export default function PropertyDashboard() {
       {/* Sidebar */}
       <aside className="sidebar">
         <nav className="sidebar-nav">
-          {sidebarMenu.map((item) => (
+          {mainMenuItems.map((item) => (
             <button
               key={item.id}
               className={`sidebar-item ${activeSection === item.id ? 'active' : ''}`}
@@ -205,22 +211,29 @@ export default function PropertyDashboard() {
             </button>
           ))}
         </nav>
+
         <div className="sidebar-bottom">
-          <button className="new-inspection-btn">New Inspection</button>
-          <button 
-            className="sidebar-item"
-            onClick={() => handleNavigation('profile')}
-          >
-            <span className="sidebar-icon">📋</span>
-            <span className="sidebar-label">Property Profile</span>
-          </button>
-          <button 
-            className="sidebar-item"
-            onClick={() => handleNavigation('settings')}
-          >
-            <span className="sidebar-icon">⚙️</span>
-            <span className="sidebar-label">Settings</span>
-          </button>
+          <div className="sidebar-property-image">
+            <img 
+              src={imageError ? placeholderImage : propertyImage || placeholderImage}
+              onError={() => {
+                console.log('Image failed to load, using placeholder');
+                setImageError(true);
+              }}
+              alt={property.name}
+            />
+          </div>
+
+          {bottomMenuItems.map((item) => (
+            <button
+              key={item.id}
+              className={`sidebar-item ${activeSection === item.id ? 'active' : ''} ${item.isAction ? 'action-item' : ''}`}
+              onClick={() => handleNavigation(item.id)}
+            >
+              <span className="sidebar-icon">{item.icon}</span>
+              <span className="sidebar-label">{item.label}</span>
+            </button>
+          ))}
         </div>
       </aside>
 
