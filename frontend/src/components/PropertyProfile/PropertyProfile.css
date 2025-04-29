@@ -1,0 +1,24 @@
+.property-profile-layout {
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+.property-profile-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  padding: 24px;
+  gap: 24px;
+}
+
+.property-profile-content {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .property-profile-container {
+    grid-template-columns: 1fr;
+  }
+} 
