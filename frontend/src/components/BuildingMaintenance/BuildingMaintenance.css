@@ -11,9 +11,10 @@
 
 .building-maintenance-content {
   flex: 1;
-  padding: 2rem;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
   background-color: var(--color-background);
   overflow-y: auto;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Sidebar Styles */
@@ -191,6 +192,35 @@
 
 .maintenance-content-area {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(21,116,246,0.06);
+  padding: 2rem;
+  margin-top: 0.5rem;
+}
+
+.sidebar-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #1A80E5;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 8px 0 16px 0;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.sidebar-back-btn:hover {
+  color: #1557b0;
+}
+
+@media (max-width: 900px) {
+  .building-maintenance-content {
+    padding: 1rem;
+  }
+  .maintenance-content-area {
+    padding: 1rem;
+  }
 }

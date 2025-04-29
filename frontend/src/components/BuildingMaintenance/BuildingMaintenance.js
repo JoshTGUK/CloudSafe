@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Navigate, useNavigate, useLocation, Outlet, Routes, Route } from 'react-router-dom';
+import { useParams, Navigate, useNavigate, useLocation, Routes, Route } from 'react-router-dom';
 import BuildingMaintenanceSidebar from './BuildingMaintenanceSidebar/BuildingMaintenanceSidebar';
 import './BuildingMaintenance.css';
 import MainHeader from '../common/MainHeader/MainHeader';
@@ -14,6 +14,8 @@ import PestControl from './PestControl/PestControl';
 import PaintingRepairs from './PaintingRepairs/PaintingRepairs';
 import DefectsReporting from './DefectsReporting/DefectsReporting';
 import Dashboard from './Dashboard/Dashboard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 // Placeholder component for unimplemented sections
 const PlaceholderComponent = ({ title }) => (
@@ -65,27 +67,18 @@ const BuildingMaintenance = () => {
   useEffect(() => {
     const initializeComponent = async () => {
       try {
-        console.log('BuildingMaintenance mounted');
-        console.log('ID:', id);
-        console.log('Current path:', location.pathname);
-        
-        // Redirect to dashboard if we're at the root building maintenance path
         if (location.pathname.endsWith('/building-maintenance')) {
           navigate('dashboard');
         }
-        
         setIsLoading(false);
       } catch (error) {
-        console.error('Error initializing BuildingMaintenance:', error);
         setIsLoading(false);
       }
     };
-
     initializeComponent();
   }, [id, location, navigate]);
 
   if (!id) {
-    console.log('No ID found, redirecting to dashboard');
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -100,20 +93,12 @@ const BuildingMaintenance = () => {
         <div className="building-maintenance-container">
           <BuildingMaintenanceSidebar />
           <div className="building-maintenance-content">
-            <nav className="return-nav">
-              <button 
-                onClick={async () => {
-                  try {
-                    await navigate(`/propertydashboard/${id}`);
-                  } catch (error) {
-                    console.error('Navigation error:', error);
-                  }
-                }} 
-                className="return-link"
-              >
-                ← Return to Property
-              </button>
-            </nav>
+            <button 
+              className="sidebar-back-btn"
+              onClick={() => navigate(`/propertydashboard/${id}`)}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} /> Back to Property
+            </button>
             <div className="maintenance-content-area">
               <Routes>
                 <Route index element={<Navigate to="dashboard" replace />} />
