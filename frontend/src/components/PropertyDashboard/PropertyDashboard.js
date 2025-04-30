@@ -15,7 +15,7 @@ export default function PropertyDashboard() {
   const [property, setProperty] = useState({
     name: '',
     address: '',
-    imageUrl: null
+    image_url: null
   });
   const [activeSection, setActiveSection] = useState('overview');
   const [propertyImage, setPropertyImage] = useState(null);
@@ -112,7 +112,7 @@ export default function PropertyDashboard() {
         setProperty({
           name: data.name,
           address: data.address,
-          imageUrl: data.image_url ? `${process.env.REACT_APP_API_URL}/api/${data.image_url}` : null
+          image_url: data.image_url ? `${process.env.REACT_APP_API_URL}/api/${data.image_url}` : null
         });
 
         // Update recently viewed properties immediately
@@ -120,7 +120,7 @@ export default function PropertyDashboard() {
           id: parseInt(id),
           name: data.name,
           address: data.address,
-          imageUrl: data.image_url // Store just the path, not the full URL
+          image_url: data.image_url // Store just the path, not the full URL
         };
 
         // Get current recent properties
@@ -206,18 +206,25 @@ export default function PropertyDashboard() {
     }
   };
 
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl || imageError) return placeholderImage;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
+  };
+
   return (
     <div className="property-dashboard">
       <MainHeader />
       
       <div className="property-image-container">
         <img 
-          src={imageError ? placeholderImage : propertyImage || placeholderImage}
-          onError={() => {
-            console.log('Image failed to load, using placeholder');
-            setImageError(true);
-          }}
+          src={getImageUrl(property.image_url)}
           alt={property.name}
+          onError={(e) => {
+            console.log('Image failed to load:', property.image_url);
+            setImageError(true);
+            e.target.src = placeholderImage;
+          }}
           className="property-image"
         />
       </div>
@@ -239,13 +246,14 @@ export default function PropertyDashboard() {
 
         <div className="sidebar-bottom">
           <div className="sidebar-property-image">
-            <img 
-              src={imageError ? placeholderImage : propertyImage || placeholderImage}
-              onError={() => {
-                console.log('Image failed to load, using placeholder');
-                setImageError(true);
-              }}
+            <img
+              src={getImageUrl(property.image_url)}
               alt={property.name}
+              onError={(e) => {
+                console.log('Image failed to load:', property.image_url);
+                setImageError(true);
+                e.target.src = placeholderImage;
+              }}
             />
           </div>
 

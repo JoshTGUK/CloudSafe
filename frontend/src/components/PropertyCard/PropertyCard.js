@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import './PropertyCard.css';
@@ -10,14 +10,29 @@ const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
   const navigate = useNavigate();
 
   const getImageUrl = (imageUrl) => {
+    // If no image or error, return placeholder
     if (!imageUrl || imageError) return placeholderImage;
+    
+    // If it's already a full URL, return as is
     if (imageUrl.startsWith('http')) return imageUrl;
-    console.log('Property image data:', {
-      imageUrl,
-      fullUrl: `${process.env.REACT_APP_API_URL}/api/${imageUrl}`
-    });
-    return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
+    
+    // For image paths from the API
+    if (imageUrl.startsWith('uploads/')) {
+      return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
+    }
+    
+    // For any other case
+    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
   };
+
+  // Add debug logging
+  useEffect(() => {
+    console.log('Property Card Debug:', {
+      propertyName: property.name,
+      rawImageUrl: property.image_url,
+      constructedUrl: getImageUrl(property.image_url)
+    });
+  }, [property]);
 
   const handleClick = (e) => {
     if (e.target.closest('.delete-button') || e.target.closest('.confirmation-modal')) {
@@ -25,8 +40,6 @@ const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
     }
     onPropertyClick(property.id);
   };
-
-  console.log('Property in card:', property);
 
   return (
     <>
@@ -36,7 +49,10 @@ const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
             src={getImageUrl(property.image_url)}
             alt={property.name}
             onError={(e) => {
-              console.error('Image failed to load:', property.image_url);
+              console.log('Image load error for:', {
+                property: property.name,
+                attemptedUrl: e.target.src
+              });
               setImageError(true);
               e.target.src = placeholderImage;
             }}

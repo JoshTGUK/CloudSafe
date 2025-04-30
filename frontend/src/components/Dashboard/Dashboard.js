@@ -62,7 +62,13 @@ const Dashboard = () => {
   const getImageUrl = (imageUrl) => {
     if (!imageUrl) return placeholderImage;
     if (imageUrl.startsWith('http')) return imageUrl;
-    return `${process.env.REACT_APP_API_URL}/api/${imageUrl.replace(/^\/+/, '')}`;
+    
+    // If the URL already contains 'uploads/', use it as is
+    if (imageUrl.includes('uploads/')) {
+      return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
+    }
+    // Otherwise, add 'uploads/' to the path
+    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
   };
 
   const fetchProperties = async () => {
@@ -78,7 +84,17 @@ const Dashboard = () => {
       if (!response.ok) throw new Error('Failed to fetch properties');
 
       const data = await response.json();
-      console.log('Fetched properties:', data); // Debug log to see the data structure
+      // Debug log to see exact data structure
+      console.log('Raw properties data:', {
+        allProperties: data,
+        firstProperty: data[0],
+        imageFields: data.map(p => ({
+          id: p.id,
+          image_url: p.image_url,
+          constructedUrl: `${process.env.REACT_APP_API_URL}/api/uploads/${p.image_url}`
+        }))
+      });
+
       setProperties(data);
       
       if (recentProperties.length === 0) {
@@ -152,7 +168,6 @@ const Dashboard = () => {
   // Update the handlePropertyClick function
   const handlePropertyClick = async (propertyId) => {
     try {
-      // Fetch the full property details
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${propertyId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -163,39 +178,34 @@ const Dashboard = () => {
       if (!response.ok) throw new Error('Failed to fetch property details');
 
       const propertyData = await response.json();
-      
-      // Create the property object to store
+      console.log('Property click data:', {
+        raw: propertyData,
+        imageUrl: propertyData.image_url,
+        constructedUrl: `${process.env.REACT_APP_API_URL}/api/uploads/${propertyData.image_url}`
+      });
+
       const propertyToStore = {
         id: propertyData.id,
         name: propertyData.name,
         address: propertyData.address,
-        imageUrl: propertyData.image_url ? `${process.env.REACT_APP_API_URL}/api/${propertyData.image_url}` : null
+        image_url: propertyData.image_url // Store the raw image URL
       };
 
-      // Get current recent properties
+      // Log what we're storing
+      console.log('Storing in recent:', propertyToStore);
+
       const storedRecent = localStorage.getItem('recentProperties');
       let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
-      
-      // Remove this property if it exists
       recentProps = recentProps.filter(p => p.id !== propertyId);
-      
-      // Add to start of list
       recentProps.unshift(propertyToStore);
-      
-      // Keep only most recent 3
       recentProps = recentProps.slice(0, 3);
       
-      // Save to localStorage
       localStorage.setItem('recentProperties', JSON.stringify(recentProps));
-      
-      // Update state immediately
       setRecentProperties(recentProps);
 
-      // Navigate to property dashboard
       navigate(`/propertydashboard/${propertyId}`);
     } catch (error) {
       console.error('Error updating recent properties:', error);
-      // Still navigate even if updating recent properties fails
       navigate(`/propertydashboard/${propertyId}`);
     }
   };
@@ -265,10 +275,10 @@ const Dashboard = () => {
                 style={{ cursor: 'pointer' }}
               >
                 <img 
-                  src={getImageUrl(property.imageUrl)} 
+                  src={getImageUrl(property.image_url)}
                   alt={property.name}
                   onError={(e) => {
-                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.onerror = null;
                     e.target.src = placeholderImage;
                   }}
                   className="recent-property-image" 
