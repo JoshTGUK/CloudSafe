@@ -33,6 +33,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [recentProperties, setRecentProperties] = useState([]);
 
   useEffect(() => {
     fetchProperties();
@@ -52,6 +53,7 @@ const Dashboard = () => {
 
       const data = await response.json();
       setProperties(data);
+      setRecentProperties(data.slice(0, 3));
     } catch (error) {
       console.error('Error:', error);
       setError(error.message);
@@ -162,14 +164,41 @@ const Dashboard = () => {
             Add New Property
           </button>
         </div>
-        <div className='search-bar'>
-          <i className='fas fa-search'></i>
-          <input
-            type="text"
-            placeholder="Search properties by name or address..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+        <div className="search-container">
+          <div className="search-bar">
+            <i className="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search properties by name or address..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
+        </div>
+        <div className="recent-properties">
+          <div className="recent-properties-header">
+            <h2 className="recent-properties-title">Recently Viewed Properties</h2>
+          </div>
+          <div className="recent-properties-grid">
+            {recentProperties.map((property) => (
+              <div 
+                key={property.id} 
+                className="recent-property-card"
+                onClick={() => handlePropertyClick(property.id)}
+                style={{ cursor: 'pointer' }}
+              >
+                <img 
+                  src={property.imageUrl || placeholderImage} 
+                  alt={property.name} 
+                  className="recent-property-image" 
+                />
+                <div className="recent-property-info">
+                  <h3 className="recent-property-name">{property.name}</h3>
+                  <p className="recent-property-address">{property.address}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         <h2 className='overview-title'>Overview</h2>
         {properties.length === 0 ? (
