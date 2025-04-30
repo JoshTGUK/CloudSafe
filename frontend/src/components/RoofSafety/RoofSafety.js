@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './RoofSafety.css';
-import { useParams, useNavigate, Routes, Route, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import MainHeader from '../common/MainHeader/MainHeader';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChartLine,
-  faCogs,
-  faLadderWater,
-  faGripLines,
-  faHandHolding,
   faAnchor,
-  faBolt,
+  faToolbox,
+  faWrench,
+  faStairs,
+  faGripLines,
+  faShield,
   faChevronRight,
   faChevronDown,
-  faArrowLeft
+  faArrowLeft,
+  faLink,
+  faCrane,
+  faRuler
 } from '@fortawesome/free-solid-svg-icons';
+import { getAuthHeader, clearToken } from '../../utils/auth';
 
 // Import all safety components
 import Cradles from './Cradles';
@@ -35,46 +39,40 @@ const sidebarSections = [
     component: RoofSafetyDashboard
   },
   {
-    id: 'cradles',
-    title: 'Cradles',
-    icon: faCogs,
-    component: Cradles
-  },
-  {
-    id: 'ladders',
-    title: 'Ladders',
-    icon: faLadderWater,
-    component: Ladders
-  },
-  {
-    id: 'walkways',
-    title: 'Walkways',
-    icon: faGripLines,
-    component: Walkways
-  },
-  {
-    id: 'handrails',
-    title: 'Handrails',
-    icon: faHandHolding,
-    component: Handrails
-  },
-  {
-    id: 'staticlines',
-    title: 'Static Lines',
-    icon: faBolt,
-    component: StaticLines
-  },
-  {
-    id: 'anchorpoints',
+    id: 'anchorPoints',
     title: 'Anchor Points',
     icon: faAnchor,
     component: AnchorPoints
   },
   {
-    id: 'davitbases',
+    id: 'cradles',
+    title: 'Cradles',
+    icon: faToolbox,
+    component: Cradles
+  },
+  {
+    id: 'davitBases',
     title: 'Davit Bases',
-    icon: faCogs,
+    icon: faWrench,
     component: DavitBases
+  },
+  {
+    id: 'ladders',
+    title: 'Ladders',
+    icon: faStairs,
+    component: Ladders
+  },
+  {
+    id: 'staticLines',
+    title: 'Static Lines',
+    icon: faGripLines,
+    component: StaticLines
+  },
+  {
+    id: 'handrails',
+    title: 'Handrails',
+    icon: faShield,
+    component: Handrails
   }
 ];
 
@@ -111,14 +109,25 @@ export default function RoofSafety() {
 
   const checkServerConnectivity = async () => {
     try {
-      const token = localStorage.getItem('token');
-      // Try to get the property data since we know that endpoint works
+      const headers = getAuthHeader();
+      if (!Object.keys(headers).length) {
+        navigate('/login');
+        return false;
+      }
+
       const response = await fetch(`${API_BASE_URL}/api/properties/${id}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          ...headers,
+          'Content-Type': 'application/json'
         }
       });
-      console.log('Server connectivity check:', response.status);
+
+      if (response.status === 401) {
+        clearToken();
+        navigate('/login');
+        return false;
+      }
+
       return response.ok;
     } catch (error) {
       console.error('Server connectivity error:', error);
@@ -353,11 +362,11 @@ export default function RoofSafety() {
       // Dashboard doesn't need to fetch specific data as it will fetch its own
       setAnchorPoints([]);
       setCradles([]);
-    } else if (section === 'anchorpoints') {
+    } else if (section === 'anchorPoints') {
       fetchRoofSafetyData();
     } else if (section === 'cradles') {
       fetchCradlesData();
-    } else if (section === 'davitbases') {
+    } else if (section === 'davitBases') {
       // The DavitBases component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
@@ -373,7 +382,7 @@ export default function RoofSafety() {
       // The Handrails component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
-    } else if (section === 'staticlines') {
+    } else if (section === 'staticLines') {
       // The StaticLines component will handle its own data fetching
       setAnchorPoints([]);
       setCradles([]);
@@ -701,7 +710,7 @@ export default function RoofSafety() {
       </div>
 
       {/* Create Modal */}
-      {showCreateModal && expandedSection === 'anchorpoints' && (
+      {showCreateModal && expandedSection === 'anchorPoints' && (
         <div className="modal-overlay">
           <div className="modal">
             <h2>Create Anchor Point</h2>
@@ -777,7 +786,7 @@ export default function RoofSafety() {
         </div>
       )}
 
-      {showEditModal && editingAnchorPoint && expandedSection === 'anchorpoints' && (
+      {showEditModal && editingAnchorPoint && expandedSection === 'anchorPoints' && (
         <div className="modal-overlay">
           <div className="modal">
             <h2>Edit Anchor Point</h2>

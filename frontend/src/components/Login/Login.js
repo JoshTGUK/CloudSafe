@@ -5,6 +5,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import './Login.css';
 import allSafeLogo from '../../assets/ALL-Safe-logo.png';
 import { FaEye, FaEyeSlash, FaLock, FaUser } from 'react-icons/fa';
+import { setToken } from '../../utils/auth';
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -55,20 +56,18 @@ export default function Login() {
         })
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Login failed');
-      }
-
       const data = await response.json();
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userRole', data.role);
-
-      toast.success('Login successful!');
-      navigate('/dashboard');
+      if (response.ok && data.token) {
+        setToken(data.token);
+        localStorage.setItem('userRole', data.role);
+        toast.success('Login successful!');
+        navigate('/dashboard');
+      } else {
+        throw new Error(data.message || 'Login failed');
+      }
     } catch (error) {
       console.error('Login error:', error);
-      toast.error(error.message || 'Login failed');
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

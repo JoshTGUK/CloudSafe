@@ -10,9 +10,17 @@ import PropertyCard from '../PropertyCard/PropertyCard';
 import { 
   FaSearch,
   FaPlus,
-  FaMapMarkerAlt
+  FaMapMarkerAlt,
+  FaExclamationTriangle, 
+  FaCalendarCheck, 
+  FaCheckCircle, 
+  FaFileAlt,
+  FaBell,
+  FaTasks
 } from 'react-icons/fa';
-import { FaQuestionCircle, FaBell, FaUserCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaUserCircle } from 'react-icons/fa';
+import NotificationPopup from '../NotificationPopup/NotificationPopup';
+import SearchPopup from '../SearchPopup/SearchPopup';
 
 // eslint-disable-next-line no-unused-vars
 const API_URL = process.env.REACT_APP_API_URL;
@@ -35,6 +43,15 @@ const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [recentProperties, setRecentProperties] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+  const [complianceStats, setComplianceStats] = useState({
+    overdueIssues: 8,
+    inspectionsDue: 5,
+    complianceRate: 92,
+    expiringDocs: 12
+  });
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSearchPopup, setShowSearchPopup] = useState(false);
 
   // Load properties and recent properties
   useEffect(() => {
@@ -226,8 +243,20 @@ const Dashboard = () => {
             <Link to="/tasks" className='nav-link'>Tasks</Link>
           </nav>
           <div className='header-icons'>
-            <div className='icon'><i className='fas fa-search'></i></div>
-            <div className='icon'><i className='fas fa-bell'></i></div>
+            <div 
+              className='icon' 
+              onClick={() => setShowSearchPopup(true)}
+            >
+              <FaSearch />
+            </div>
+            <div 
+              className='icon' 
+              onMouseEnter={() => setShowNotifications(true)}
+              onMouseLeave={() => setShowNotifications(false)}
+            >
+              <i className='fas fa-bell'></i>
+              <NotificationPopup isOpen={showNotifications} />
+            </div>
             <div className='icon'><i className='fas fa-question-circle'></i></div>
             <div className='user-avatar-container' onClick={() => setShowUserMenu(!showUserMenu)}>
               <UserAvatar />
@@ -242,26 +271,48 @@ const Dashboard = () => {
         </div>
       </header>
       <main className='dashboard-content'>
-        <div className='dashboard-header'>
+        <div className="welcome-section">
           <div>
-            <h1 className='dashboard-title'>Dashboard</h1>
-            <p className='dashboard-subtitle'>Your portfolio at a glance</p>
+            <h1>Welcome back, Sam 👋</h1>
+            <p>Here's what's happening across your properties</p>
           </div>
-          <button className='add-property-btn' onClick={() => setShowAddPropertyForm(true)}>
-            Add New Property
+          <button className="add-property-floating-btn" onClick={() => setShowAddPropertyForm(true)}>
+            <FaPlus /> Add New Property
           </button>
         </div>
-        <div className="search-container">
+
+        {/* Add back the search bar but make it trigger the popup */}
+        <div className="search-container" onClick={() => setShowSearchPopup(true)}>
           <div className="search-bar">
-            <i className="fas fa-search"></i>
+            <FaSearch className="search-icon" />
             <input
               type="text"
               placeholder="Search properties by name or address..."
-              value={searchTerm}
-              onChange={handleSearch}
+              readOnly // Make it read-only since it will open popup
+              value=""
             />
           </div>
         </div>
+
+        <div className="compliance-summary">
+          <div className="summary-card red">
+            <h3>{complianceStats.overdueIssues}</h3>
+            <p>Overdue Issues</p>
+          </div>
+          <div className="summary-card orange">
+            <h3>{complianceStats.inspectionsDue}</h3>
+            <p>Inspections Due</p>
+          </div>
+          <div className="summary-card green">
+            <h3>{complianceStats.complianceRate}%</h3>
+            <p>Properties Compliant</p>
+          </div>
+          <div className="summary-card blue">
+            <h3>{complianceStats.expiringDocs}</h3>
+            <p>Documents Expiring</p>
+          </div>
+        </div>
+
         <div className="recent-properties">
           <div className="recent-properties-header">
             <h2 className="recent-properties-title">Recently Viewed Properties</h2>
@@ -291,13 +342,22 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-        <h2 className='overview-title'>Overview</h2>
-        {properties.length === 0 ? (
-          <div className="no-properties">
-            <h3>No Properties Yet</h3>
-            <p>Add your first property to get started</p>
+
+        <div className="actions-panel">
+          <h2><FaTasks /> My Actions</h2>
+          <div className="action-items">
+            <div className="action-item">
+              <div className="action-content">
+                <h4>Complete Fire Safety Inspection</h4>
+                <p>Avalon House</p>
+              </div>
+              <span className="due-date">Due Today</span>
+            </div>
           </div>
-        ) : (
+        </div>
+
+        <div className="properties-overview">
+          <h2 className="section-title">Properties Overview</h2>
           <div className="properties-grid">
             {(searchTerm ? filteredProperties : properties).map(property => (
               <PropertyCard
@@ -308,7 +368,8 @@ const Dashboard = () => {
               />
             ))}
           </div>
-        )}
+        </div>
+
         {showAddPropertyForm && (
           <AddPropertyForm 
             onClose={() => setShowAddPropertyForm(false)} 
@@ -325,6 +386,15 @@ const Dashboard = () => {
             </div>
           </div>
         )}
+
+        <SearchPopup 
+          isOpen={showSearchPopup}
+          onClose={() => setShowSearchPopup(false)}
+          properties={properties}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onPropertyClick={handlePropertyClick}
+        />
       </main>
     </div>
   );

@@ -168,17 +168,12 @@ export default function PropertyDashboard() {
   ];
 
   const handleNavigation = (path) => {
-    // Use the same URL pattern as the current page
-    const baseUrl = window.location.pathname.includes('propertydashboard') 
-      ? '/propertydashboard' 
-      : '/properties';
-    
     switch (path) {
-      case 'roof':
-        navigate(`/properties/${id}/roof-safety`);
-        break;
       case 'fire':
         navigate(`/properties/${id}/fire-safety`);
+        break;
+      case 'roof':
+        navigate(`/properties/${id}/roof-safety`);
         break;
       case 'staff':
         navigate(`/properties/${id}/staff-safety`);
@@ -196,7 +191,7 @@ export default function PropertyDashboard() {
         navigate(`/properties/${id}/emergency-preparedness`);
         break;
       case 'profile':
-        navigate(`${baseUrl}/${id}/profile`);
+        navigate(`/properties/${id}/profile`);
         break;
       case 'settings':
         navigate('/settings');

@@ -94,6 +94,10 @@ const FireSafety = () => {
     setExpandedSection(section);
   };
 
+  const handleBackClick = () => {
+    navigate(`/propertydashboard/${id}`);
+  };
+
   const renderContent = () => {
     const section = sidebarSections.find(s => s.id === expandedSection);
     if (!section) return null;
@@ -109,8 +113,8 @@ const FireSafety = () => {
       <MainHeader />
       <div className="fire-safety-content">
         <div className="fire-safety-sidebar">
-          <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
-            <FontAwesomeIcon icon={faArrowLeft} /> Back
+          <button className="sidebar-back-btn" onClick={handleBackClick}>
+            <FontAwesomeIcon icon={faArrowLeft} /> Back to Property
           </button>
           <div className="fire-safety-menu">
             {sidebarSections.map((section) => (
