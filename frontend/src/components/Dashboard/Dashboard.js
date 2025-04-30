@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Dashboard.css';
 import allSafeLogo from '../../assets/ALL-Safe-logo.png';
 import placeholderImage from '../../assets/placeholder.png';
@@ -31,13 +31,39 @@ const Dashboard = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState({ show: false, index: null });
   const [showUserMenu, setShowUserMenu] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [recentProperties, setRecentProperties] = useState([]);
 
+  // Load properties and recent properties
   useEffect(() => {
-    fetchProperties();
+    fetchProperties(); // Add this back to load properties initially
+    
+    const loadRecentProperties = () => {
+      const storedRecent = localStorage.getItem('recentProperties');
+      if (storedRecent) {
+        const recentProps = JSON.parse(storedRecent);
+        setRecentProperties(recentProps);
+      }
+    };
+
+    loadRecentProperties();
+    
+    // Set up an interval to check for updates
+    const checkInterval = setInterval(() => {
+      loadRecentProperties();
+    }, 100);
+
+    return () => clearInterval(checkInterval);
   }, []);
+
+  // Add this helper function
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return placeholderImage;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    return `${process.env.REACT_APP_API_URL}/api/${imageUrl.replace(/^\/+/, '')}`;
+  };
 
   const fetchProperties = async () => {
     try {
@@ -52,8 +78,12 @@ const Dashboard = () => {
       if (!response.ok) throw new Error('Failed to fetch properties');
 
       const data = await response.json();
+      console.log('Fetched properties:', data); // Debug log to see the data structure
       setProperties(data);
-      setRecentProperties(data.slice(0, 3));
+      
+      if (recentProperties.length === 0) {
+        setRecentProperties(data.slice(0, 3));
+      }
     } catch (error) {
       console.error('Error:', error);
       setError(error.message);
@@ -119,8 +149,55 @@ const Dashboard = () => {
     setFilteredProperties(filtered);
   };
 
-  const handlePropertyClick = (propertyId) => {
-    navigate(`/propertydashboard/${propertyId}`);
+  // Update the handlePropertyClick function
+  const handlePropertyClick = async (propertyId) => {
+    try {
+      // Fetch the full property details
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${propertyId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch property details');
+
+      const propertyData = await response.json();
+      
+      // Create the property object to store
+      const propertyToStore = {
+        id: propertyData.id,
+        name: propertyData.name,
+        address: propertyData.address,
+        imageUrl: propertyData.image_url ? `${process.env.REACT_APP_API_URL}/api/${propertyData.image_url}` : null
+      };
+
+      // Get current recent properties
+      const storedRecent = localStorage.getItem('recentProperties');
+      let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
+      
+      // Remove this property if it exists
+      recentProps = recentProps.filter(p => p.id !== propertyId);
+      
+      // Add to start of list
+      recentProps.unshift(propertyToStore);
+      
+      // Keep only most recent 3
+      recentProps = recentProps.slice(0, 3);
+      
+      // Save to localStorage
+      localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+      
+      // Update state immediately
+      setRecentProperties(recentProps);
+
+      // Navigate to property dashboard
+      navigate(`/propertydashboard/${propertyId}`);
+    } catch (error) {
+      console.error('Error updating recent properties:', error);
+      // Still navigate even if updating recent properties fails
+      navigate(`/propertydashboard/${propertyId}`);
+    }
   };
 
   if (isLoading) {
@@ -188,8 +265,12 @@ const Dashboard = () => {
                 style={{ cursor: 'pointer' }}
               >
                 <img 
-                  src={property.imageUrl || placeholderImage} 
-                  alt={property.name} 
+                  src={getImageUrl(property.imageUrl)} 
+                  alt={property.name}
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = placeholderImage;
+                  }}
                   className="recent-property-image" 
                 />
                 <div className="recent-property-info">
@@ -213,6 +294,7 @@ const Dashboard = () => {
                 key={property.id}
                 property={property}
                 onDelete={handleDeleteProperty}
+                onPropertyClick={handlePropertyClick}
               />
             ))}
           </div>

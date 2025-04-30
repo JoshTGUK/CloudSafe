@@ -97,8 +97,6 @@ export default function PropertyDashboard() {
     const fetchPropertyDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log('Fetching property with ID:', id);
-        
         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -106,17 +104,44 @@ export default function PropertyDashboard() {
           }
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch property details');
-        }
+        if (!response.ok) throw new Error('Failed to fetch property details');
 
         const data = await response.json();
-        console.log('Fetched property:', data);
+        
+        // Update property state
         setProperty({
           name: data.name,
           address: data.address,
           imageUrl: data.image_url ? `${process.env.REACT_APP_API_URL}/api/${data.image_url}` : null
         });
+
+        // Update recently viewed properties immediately
+        const propertyToStore = {
+          id: parseInt(id),
+          name: data.name,
+          address: data.address,
+          imageUrl: data.image_url // Store just the path, not the full URL
+        };
+
+        // Get current recent properties
+        const storedRecent = localStorage.getItem('recentProperties');
+        let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
+        
+        // Remove this property if it exists
+        recentProps = recentProps.filter(p => p.id !== parseInt(id));
+        
+        // Add to start of list
+        recentProps.unshift(propertyToStore);
+        
+        // Keep only most recent 3
+        recentProps = recentProps.slice(0, 3);
+        
+        // Save to localStorage
+        localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+
+        // Force a refresh by setting a flag in localStorage
+        localStorage.setItem('recentPropertiesUpdated', Date.now().toString());
+
       } catch (error) {
         console.error('Error fetching property details:', error);
       }

@@ -4,39 +4,42 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import './PropertyCard.css';
 import placeholderImage from '../../assets/placeholder.png';
 
-const PropertyCard = ({ property, onDelete }) => {
+const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
   const [imageError, setImageError] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    if (e.target.closest('.delete-button')) return;
-    navigate(`/propertydashboard/${property.id}`);
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl || imageError) return placeholderImage;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    console.log('Property image data:', {
+      imageUrl,
+      fullUrl: `${process.env.REACT_APP_API_URL}/api/${imageUrl}`
+    });
+    return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
   };
 
-  const getImageUrl = (imageUrl) => {
-    if (!imageUrl) return placeholderImage;
-    if (imageUrl.startsWith('http')) return imageUrl;
-    
-    // Remove any leading slashes and construct the full URL
-    const cleanImagePath = imageUrl.replace(/^\/+/, '');
-    return `${process.env.REACT_APP_API_URL}/api/${cleanImagePath}`;
+  const handleClick = (e) => {
+    if (e.target.closest('.delete-button') || e.target.closest('.confirmation-modal')) {
+      return;
+    }
+    onPropertyClick(property.id);
   };
+
+  console.log('Property in card:', property);
 
   return (
     <>
       <div className="property-card" onClick={handleClick}>
-        <div className={`property-image ${imageLoading ? 'loading' : ''}`}>
+        <div className="property-image">
           <img
-            src={imageError ? placeholderImage : getImageUrl(property.image_url)}
+            src={getImageUrl(property.image_url)}
             alt={property.name}
-            onError={() => {
+            onError={(e) => {
               console.error('Image failed to load:', property.image_url);
               setImageError(true);
-              setImageLoading(false);
+              e.target.src = placeholderImage;
             }}
-            onLoad={() => setImageLoading(false)}
           />
         </div>
         <div className="property-info">
