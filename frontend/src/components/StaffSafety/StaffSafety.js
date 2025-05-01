@@ -26,7 +26,7 @@ import './StaffSafety.css';
 const StaffSafety = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [expandedSection, setExpandedSection] = useState('dashboard');
+    const [activeSection, setActiveSection] = useState('dashboard');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -34,60 +34,58 @@ const StaffSafety = () => {
         setLoading(false);
     }, []);
 
-    const handleSectionClick = (section) => {
-        setExpandedSection(section);
-    };
-
-    const sidebarSections = [
+    const menuItems = [
         {
             id: 'dashboard',
             title: 'Staff Dashboard',
-            icon: faChartLine,
-            component: StaffSafetyDashboard
+            icon: faChartLine
         },
         {
             id: 'training',
             title: 'Training Records',
-            icon: faGraduationCap,
-            component: TrainingRecords
+            icon: faGraduationCap
         },
         {
             id: 'inductions',
             title: 'Inductions',
-            icon: faUserCheck,
-            component: Inductions
+            icon: faUserCheck
         },
         {
             id: 'incidents',
             title: 'Incident Reports',
-            icon: faExclamationTriangle,
-            component: IncidentReports
+            icon: faExclamationTriangle
         },
         {
             id: 'tasks',
             title: 'Assigned Safety Tasks',
-            icon: faTasks,
-            component: AssignedTasks
+            icon: faTasks
         },
         {
             id: 'certifications',
             title: 'Certifications',
-            icon: faCertificate,
-            component: Certifications
+            icon: faCertificate
         },
         {
             id: 'ppe',
             title: 'PPE Issuance Logs',
-            icon: faHardHat,
-            component: PPEIssuance
+            icon: faHardHat
         }
     ];
 
     const renderContent = () => {
-        const section = sidebarSections.find(s => s.id === expandedSection);
+        const section = menuItems.find(item => item.id === activeSection);
         if (!section) return null;
 
-        const Component = section.component;
+        const Component = {
+            dashboard: StaffSafetyDashboard,
+            training: TrainingRecords,
+            inductions: Inductions,
+            incidents: IncidentReports,
+            tasks: AssignedTasks,
+            certifications: Certifications,
+            ppe: PPEIssuance
+        }[section.id];
+
         return <Component propertyId={id} />;
     };
 
@@ -95,34 +93,37 @@ const StaffSafety = () => {
     if (error) return <div className="error">{error}</div>;
 
     return (
-        <div className="staff-safety-container">
+        <div className="safety-container">
             <MainHeader />
-            <div className="staff-safety-content">
-                <div className="staff-safety-sidebar">
-                    <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
+            <div className="safety-content">
+                <div className="safety-sidebar">
+                    <button className="back-button" onClick={() => navigate(`/propertydashboard/${id}`)}>
                         <FontAwesomeIcon icon={faArrowLeft} /> Back
                     </button>
-                    <div className="staff-safety-menu">
-                        {sidebarSections.map((section) => (
+                    <nav className="safety-nav">
+                        {menuItems.map((item) => (
                             <div
-                                key={section.id}
-                                className={`staff-safety-menu-item ${expandedSection === section.id ? 'active' : ''}`}
-                                onClick={() => handleSectionClick(section.id)}
+                                key={item.id}
+                                className={`nav-item ${activeSection === item.id ? 'active' : ''}`}
+                                onClick={() => setActiveSection(item.id)}
                             >
-                                <div className="staff-safety-menu-item-header">
-                                    <FontAwesomeIcon icon={section.icon} className="staff-safety-menu-icon" />
-                                    <span>{section.title}</span>
-                                    <FontAwesomeIcon 
-                                        icon={expandedSection === section.id ? faChevronDown : faChevronRight} 
-                                        className="staff-safety-menu-arrow"
-                                    />
-                                </div>
+                                <FontAwesomeIcon icon={item.icon} className="nav-icon" />
+                                <span>{item.title}</span>
+                                <FontAwesomeIcon 
+                                    icon={activeSection === item.id ? faChevronDown : faChevronRight} 
+                                    className="nav-arrow"
+                                />
                             </div>
                         ))}
-                    </div>
+                    </nav>
                 </div>
-                <div className="staff-safety-main">
-                    {renderContent()}
+                <div className="safety-main">
+                    <div className="safety-header">
+                        <h1>{menuItems.find(item => item.id === activeSection)?.title}</h1>
+                    </div>
+                    <div className="safety-body">
+                        {renderContent()}
+                    </div>
                 </div>
             </div>
         </div>

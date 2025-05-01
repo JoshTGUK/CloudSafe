@@ -13,9 +13,9 @@ import LightingElectrical from './LightingElectrical/LightingElectrical';
 import PestControl from './PestControl/PestControl';
 import PaintingRepairs from './PaintingRepairs/PaintingRepairs';
 import DefectsReporting from './DefectsReporting/DefectsReporting';
-import Dashboard from './Dashboard/Dashboard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import BuildingMaintenanceDashboard from './BuildingMaintenanceDashboard/BuildingMaintenanceDashboard';
 
 // Placeholder component for unimplemented sections
 const PlaceholderComponent = ({ title }) => (
@@ -67,9 +67,6 @@ const BuildingMaintenance = () => {
   useEffect(() => {
     const initializeComponent = async () => {
       try {
-        if (location.pathname.endsWith('/building-maintenance')) {
-          navigate('dashboard');
-        }
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -88,34 +85,25 @@ const BuildingMaintenance = () => {
 
   return (
     <ErrorBoundary>
-      <div className="app-container">
+      <div className="building-maintenance-container">
         <MainHeader />
-        <div className="building-maintenance-container">
+        <div className="building-maintenance-content">
           <BuildingMaintenanceSidebar />
-          <div className="building-maintenance-content">
-            <button 
-              className="sidebar-back-btn"
-              onClick={() => navigate(`/propertydashboard/${id}`)}
-            >
-              <FontAwesomeIcon icon={faArrowLeft} /> Back to Property
-            </button>
-            <div className="maintenance-content-area">
-              <Routes>
-                <Route index element={<Navigate to="dashboard" replace />} />
-                <Route path="dashboard" element={<Dashboard hideHeader />} />
-                <Route path="plumbing" element={<PlumbingSystems hideHeader />} />
-                <Route path="heating-cooling" element={<HeatingCooling hideHeader />} />
-                <Route path="lift" element={<LiftMaintenance hideHeader />} />
-                <Route path="roof" element={<RoofMaintenance hideHeader />} />
-                <Route path="facade" element={<FacadeMaintenance hideHeader />} />
-                <Route path="doors-windows" element={<DoorsWindows hideHeader />} />
-                <Route path="lighting" element={<LightingElectrical hideHeader />} />
-                <Route path="pest-control" element={<PestControl hideHeader />} />
-                <Route path="painting" element={<PaintingRepairs hideHeader />} />
-                <Route path="defects" element={<DefectsReporting hideHeader />} />
-              </Routes>
-            </div>
-          </div>
+          <main className="building-maintenance-main">
+            <Routes>
+              <Route index element={<BuildingMaintenanceDashboard propertyId={id} />} />
+              <Route path="plumbing" element={<PlumbingSystems propertyId={id} />} />
+              <Route path="heating-cooling" element={<HeatingCooling propertyId={id} />} />
+              <Route path="lift" element={<LiftMaintenance propertyId={id} />} />
+              <Route path="roof" element={<RoofMaintenance propertyId={id} />} />
+              <Route path="facade" element={<FacadeMaintenance propertyId={id} />} />
+              <Route path="doors-windows" element={<DoorsWindows propertyId={id} />} />
+              <Route path="lighting" element={<LightingElectrical propertyId={id} />} />
+              <Route path="pest-control" element={<PestControl propertyId={id} />} />
+              <Route path="painting" element={<PaintingRepairs propertyId={id} />} />
+              <Route path="defects" element={<DefectsReporting propertyId={id} />} />
+            </Routes>
+          </main>
         </div>
       </div>
     </ErrorBoundary>

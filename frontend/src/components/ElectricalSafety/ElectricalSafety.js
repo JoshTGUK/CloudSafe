@@ -1,102 +1,103 @@
 import React from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
 import MainHeader from '../common/MainHeader/MainHeader';
 import ElectricalSafetyDashboard from './ElectricalSafetyDashboard';
-import RCDTesting from './RCDTesting/RCDTesting';
 import CircuitBreakerChecks from './CircuitBreakerChecks/CircuitBreakerChecks';
-import FuseBoardInspections from './FuseBoardInspections/FuseBoardInspections';
 import ElectricalEquipmentLogs from './ElectricalEquipmentLogs/ElectricalEquipmentLogs';
-import PATTestingLogs from './PATTestingLogs/PATTestingLogs';
-import LoadTesting from './LoadTesting/LoadTesting';
-import SwitchgearInspections from './SwitchgearInspections/SwitchgearInspections';
-import GroundingAndBonding from './GroundingAndBonding/GroundingAndBonding';
 import EmergencyPowerSystems from './EmergencyPowerSystems/EmergencyPowerSystems';
+import FuseBoardInspections from './FuseBoardInspections/FuseBoardInspections';
+import GroundingAndBonding from './GroundingAndBonding/GroundingAndBonding';
+import LoadTesting from './LoadTesting/LoadTesting';
+import PATTestingLogs from './PATTestingLogs/PATTestingLogs';
+import RCDTesting from './RCDTesting/RCDTesting';
+import SwitchgearInspections from './SwitchgearInspections/SwitchgearInspections';
 import ThermalImagingReports from './ThermalImagingReports/ThermalImagingReports';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+    faChartLine,
     faBolt,
+    faTools,
     faPlug,
-    faCircleNodes,
-    faClipboardCheck,
-    faToolbox,
-    faBarcode,
-    faWeightHanging,
     faIndustry,
-    faPlug as faGrounding,
-    faPowerOff,
     faCamera,
+    faLightbulb,
+    faWrench,
+    faExclamationTriangle,
+    faFileAlt,
     faArrowLeft
 } from '@fortawesome/free-solid-svg-icons';
 import './ElectricalSafety.css';
 
-const BASE_PATH = '/electrical-safety';
-
 const sidebarMenu = [
-    { name: 'Dashboard', path: '', icon: faBolt },
-    { name: 'RCD Testing', path: 'rcd-testing', icon: faPlug },
-    { name: 'Circuit Breaker Checks', path: 'circuit-breakers', icon: faCircleNodes },
-    { name: 'Fuse Board Inspections', path: 'fuse-boards', icon: faClipboardCheck },
-    { name: 'Electrical Equipment Logs', path: 'equipment-logs', icon: faToolbox },
-    { name: 'PAT Testing Logs', path: 'pat-testing', icon: faBarcode },
-    { name: 'Load Testing', path: 'load-testing', icon: faWeightHanging },
-    { name: 'Switchgear Inspections', path: 'switchgear', icon: faIndustry },
-    { name: 'Grounding and Bonding', path: 'grounding', icon: faGrounding },
-    { name: 'Emergency Power Systems', path: 'emergency-power', icon: faPowerOff },
-    { name: 'Thermal Imaging Reports', path: 'thermal-imaging', icon: faCamera }
+    { id: 'dashboard', label: 'Dashboard', icon: faChartLine, path: '' },
+    { id: 'circuit-breakers', label: 'Circuit Breakers', icon: faBolt, path: 'circuit-breakers' },
+    { id: 'equipment-logs', label: 'Equipment Logs', icon: faTools, path: 'equipment-logs' },
+    { id: 'emergency-power', label: 'Emergency Power', icon: faPlug, path: 'emergency-power' },
+    { id: 'fuse-boards', label: 'Fuse Boards', icon: faIndustry, path: 'fuse-boards' },
+    { id: 'grounding', label: 'Grounding & Bonding', icon: faLightbulb, path: 'grounding' },
+    { id: 'load-testing', label: 'Load Testing', icon: faWrench, path: 'load-testing' },
+    { id: 'pat-testing', label: 'PAT Testing', icon: faExclamationTriangle, path: 'pat-testing' },
+    { id: 'rcd-testing', label: 'RCD Testing', icon: faFileAlt, path: 'rcd-testing' },
+    { id: 'switchgear', label: 'Switchgear', icon: faIndustry, path: 'switchgear' },
+    { id: 'thermal-imaging', label: 'Thermal Imaging', icon: faCamera, path: 'thermal-imaging' }
 ];
 
 const ElectricalSafety = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
+
     const activeSection = sidebarMenu.find(item => {
+        const currentPath = location.pathname;
         if (item.path === '') {
-            return location.pathname === BASE_PATH || location.pathname === `${BASE_PATH}/`;
+            return currentPath === `/propertydashboard/${id}/electrical-safety`;
         }
-        return location.pathname === `${BASE_PATH}/${item.path}`;
-    })?.name || 'Dashboard';
+        return currentPath === `/propertydashboard/${id}/electrical-safety/${item.path}`;
+    })?.id || 'dashboard';
 
     const handleNavigation = (path) => {
-        navigate(path ? `${BASE_PATH}/${path}` : BASE_PATH);
+        navigate(path === '' ? 
+            `/propertydashboard/${id}/electrical-safety` : 
+            `/propertydashboard/${id}/electrical-safety/${path}`
+        );
     };
 
     return (
         <div className="electrical-safety-container">
-            <MainHeader title="Electrical Safety" />
+            <MainHeader />
             <div className="electrical-safety-content">
-                {/* Sidebar Navigation */}
                 <aside className="electrical-safety-sidebar">
-                    <button className="sidebar-back-btn" onClick={() => navigate(-1)}>
+                    <button className="sidebar-back-btn" onClick={() => navigate(`/propertydashboard/${id}`)}>
                         <FontAwesomeIcon icon={faArrowLeft} /> Back
                     </button>
                     <nav className="electrical-safety-menu">
-                        {sidebarMenu.map((item, index) => (
+                        {sidebarMenu.map((item) => (
                             <div
-                                key={index}
-                                className={`electrical-safety-menu-item ${activeSection === item.name ? 'active' : ''}`}
+                                key={item.id}
+                                className={`electrical-safety-menu-item ${activeSection === item.id ? 'active' : ''}`}
                                 onClick={() => handleNavigation(item.path)}
                             >
                                 <div className="electrical-safety-menu-item-header">
                                     <FontAwesomeIcon icon={item.icon} className="electrical-safety-menu-icon" />
-                                    <span>{item.name}</span>
+                                    <span>{item.label}</span>
                                 </div>
                             </div>
                         ))}
                     </nav>
                 </aside>
-                {/* Main Content Area */}
                 <main className="electrical-safety-main">
                     <Routes>
-                        <Route index element={<ElectricalSafetyDashboard />} />
-                        <Route path="rcd-testing" element={<RCDTesting />} />
-                        <Route path="circuit-breakers" element={<CircuitBreakerChecks />} />
-                        <Route path="fuse-boards" element={<FuseBoardInspections />} />
-                        <Route path="equipment-logs" element={<ElectricalEquipmentLogs />} />
-                        <Route path="pat-testing" element={<PATTestingLogs />} />
-                        <Route path="load-testing" element={<LoadTesting />} />
-                        <Route path="switchgear" element={<SwitchgearInspections />} />
-                        <Route path="grounding" element={<GroundingAndBonding />} />
-                        <Route path="emergency-power" element={<EmergencyPowerSystems />} />
-                        <Route path="thermal-imaging" element={<ThermalImagingReports />} />
+                        <Route path="/" element={<ElectricalSafetyDashboard propertyId={id} />} />
+                        <Route path="/circuit-breakers" element={<CircuitBreakerChecks propertyId={id} />} />
+                        <Route path="/equipment-logs" element={<ElectricalEquipmentLogs propertyId={id} />} />
+                        <Route path="/emergency-power" element={<EmergencyPowerSystems propertyId={id} />} />
+                        <Route path="/fuse-boards" element={<FuseBoardInspections propertyId={id} />} />
+                        <Route path="/grounding" element={<GroundingAndBonding propertyId={id} />} />
+                        <Route path="/load-testing" element={<LoadTesting propertyId={id} />} />
+                        <Route path="/pat-testing" element={<PATTestingLogs propertyId={id} />} />
+                        <Route path="/rcd-testing" element={<RCDTesting propertyId={id} />} />
+                        <Route path="/switchgear" element={<SwitchgearInspections propertyId={id} />} />
+                        <Route path="/thermal-imaging" element={<ThermalImagingReports propertyId={id} />} />
                     </Routes>
                 </main>
             </div>

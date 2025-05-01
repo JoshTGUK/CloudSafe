@@ -1,69 +1,101 @@
-.staff-safety-container {
+.safety-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #f5f6fa;
 }
 
-.staff-safety-content {
+.safety-content {
     display: flex;
     flex: 1;
-    padding: 20px;
-    gap: 20px;
+    padding: 24px;
+    gap: 24px;
 }
 
-.staff-safety-sidebar {
+.safety-sidebar {
     width: 280px;
-    background-color: white;
+    background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.staff-safety-menu {
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 14px;
+    padding: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    width: 100%;
+    text-align: left;
+}
+
+.back-button:hover {
+    color: #1a80e5;
+}
+
+.safety-nav {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.staff-safety-menu-item {
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.staff-safety-menu-item:hover {
-    background-color: #f0f2f5;
-}
-
-.staff-safety-menu-item.active {
-    background-color: #e3f2fd;
-    color: #1976d2;
-}
-
-.staff-safety-menu-item-header {
+.nav-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #637587;
 }
 
-.staff-safety-menu-icon {
+.nav-item:hover {
+    background: #f5f6fa;
+}
+
+.nav-item.active {
+    background: #1a80e5;
+    color: white;
+}
+
+.nav-icon {
     width: 20px;
+    margin-right: 12px;
 }
 
-.staff-safety-menu-arrow {
+.nav-arrow {
     margin-left: auto;
     font-size: 12px;
 }
 
-.staff-safety-main {
+.safety-main {
     flex: 1;
-    background-color: white;
+    background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    overflow-y: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.safety-header {
+    margin-bottom: 24px;
+}
+
+.safety-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1f36;
+    margin: 0;
+}
+
+.safety-body {
+    background: white;
+    border-radius: 8px;
 }
 
 .loading {
@@ -88,11 +120,12 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .staff-safety-content {
+    .safety-content {
         flex-direction: column;
+        padding: 16px;
     }
 
-    .staff-safety-sidebar {
+    .safety-sidebar {
         width: 100%;
     }
 } 

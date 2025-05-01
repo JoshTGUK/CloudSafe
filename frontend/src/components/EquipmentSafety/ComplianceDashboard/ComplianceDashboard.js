@@ -6,7 +6,9 @@ import {
     faExclamationTriangle,
     faWrench,
     faFileAlt,
-    faChartPie
+    faChartPie,
+    faCheckCircle,
+    faCalendarAlt
 } from '@fortawesome/free-solid-svg-icons';
 import Charts from './Charts';
 import './ComplianceDashboard.css';
@@ -44,6 +46,34 @@ const ComplianceDashboard = () => {
             },
         ],
     };
+
+    // Mock data - replace with actual API data later
+    const upcomingInspections = [
+        {
+            id: 1,
+            equipment: "Forklift #1",
+            type: "Maintenance",
+            dueDate: "2024-04-15",
+            status: "Upcoming",
+            priority: "Medium"
+        },
+        {
+            id: 2,
+            equipment: "Crane System",
+            type: "Safety Check",
+            dueDate: "2024-04-18",
+            status: "Due Soon",
+            priority: "High"
+        },
+        {
+            id: 3,
+            equipment: "Loading Dock",
+            type: "Inspection",
+            dueDate: "2024-04-20",
+            status: "Scheduled",
+            priority: "Low"
+        }
+    ];
 
     return (
         <div className="compliance-dashboard">
@@ -106,6 +136,42 @@ const ComplianceDashboard = () => {
                         <FontAwesomeIcon icon={faChartPie} />
                         <span>Detailed Analytics</span>
                     </Link>
+                </div>
+            </div>
+
+            <div className="upcoming-inspections-section">
+                <h2>
+                    <FontAwesomeIcon icon={faCalendarAlt} />
+                    Upcoming Inspections
+                </h2>
+                <div className="inspection-cards">
+                    {upcomingInspections.map(inspection => (
+                        <div key={inspection.id} className={`inspection-card priority-${inspection.priority.toLowerCase()}`}>
+                            <div className="inspection-header">
+                                <FontAwesomeIcon icon={faWrench} />
+                                <span className="equipment-name">{inspection.equipment}</span>
+                                <span className={`status-badge ${inspection.status.toLowerCase().replace(' ', '-')}`}>
+                                    {inspection.status}
+                                </span>
+                            </div>
+                            <div className="inspection-details">
+                                <div className="detail-row">
+                                    <span className="label">Type:</span>
+                                    <span className="value">{inspection.type}</span>
+                                </div>
+                                <div className="detail-row">
+                                    <span className="label">Due Date:</span>
+                                    <span className="value">{new Date(inspection.dueDate).toLocaleDateString()}</span>
+                                </div>
+                                <div className="detail-row">
+                                    <span className="label">Priority:</span>
+                                    <span className={`value priority-text-${inspection.priority.toLowerCase()}`}>
+                                        {inspection.priority}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import App from './App';
+import App from './App/App';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -17,7 +17,6 @@ import BuildingMaintenanceDashboard from './components/BuildingMaintenance/Build
 import GeneralMaintenance from './components/BuildingMaintenance/GeneralMaintenance/GeneralMaintenance';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import 'react-toastify/dist/ReactToastify.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import Tasks from './components/Tasks/Tasks';
 import Inspections from './components/Inspections/Inspections';
@@ -103,11 +102,15 @@ const router = createBrowserRouter([
         element: <ProtectedRoute><StaffSafety /></ProtectedRoute>
       },
       {
-        path: "equipment-safety/*",
+        path: "properties/:id/equipment-safety/*",
         element: <ProtectedRoute><EquipmentSafety /></ProtectedRoute>
       },
       {
-        path: "electrical-safety/*",
+        path: "properties/:id/electrical-safety/*",
+        element: <ProtectedRoute><ElectricalSafety /></ProtectedRoute>
+      },
+      {
+        path: "propertydashboard/:id/electrical-safety/*",
         element: <ProtectedRoute><ElectricalSafety /></ProtectedRoute>
       },
       {
@@ -124,6 +127,10 @@ const router = createBrowserRouter([
       },
       {
         path: "properties/:id/emergency-preparedness/*",
+        element: <ProtectedRoute><EmergencyPreparedness /></ProtectedRoute>
+      },
+      {
+        path: "propertydashboard/:id/emergency-preparedness/*",
         element: <ProtectedRoute><EmergencyPreparedness /></ProtectedRoute>
       },
       {
@@ -171,8 +178,6 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

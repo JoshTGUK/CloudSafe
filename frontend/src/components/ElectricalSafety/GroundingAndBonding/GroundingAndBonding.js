@@ -5,7 +5,7 @@ import {
     faBolt,
     faCheckCircle,
     faExclamationTriangle,
-    faCalendarAlt
+    faCalendar
 } from '@fortawesome/free-solid-svg-icons';
 import './GroundingAndBonding.css';
 
@@ -21,13 +21,8 @@ const GroundingAndBonding = () => {
             groundResistance: '0.5 Ω',
             bondingContinuity: '0.2 Ω',
             electrodeCondition: 'Good',
-            connectionTightness: 'Pass',
-            corrosionStatus: 'None',
-            soilCondition: 'Normal',
             result: 'Pass',
-            recommendations: 'Continue regular maintenance',
-            nextInspectionDue: '2024-09-20',
-            inspector: 'John Smith'
+            nextDue: '2024-09-20'
         },
         {
             id: 2,
@@ -38,13 +33,8 @@ const GroundingAndBonding = () => {
             groundResistance: '2.1 Ω',
             bondingContinuity: '0.4 Ω',
             electrodeCondition: 'Fair',
-            connectionTightness: 'Attention Required',
-            corrosionStatus: 'Minor',
-            soilCondition: 'Damp',
             result: 'Attention Required',
-            recommendations: 'Tighten connections, monitor corrosion',
-            nextInspectionDue: '2024-04-15',
-            inspector: 'Sarah Wilson'
+            nextDue: '2024-04-15'
         }
     ]);
 
@@ -98,7 +88,7 @@ const GroundingAndBonding = () => {
                     <h1>Grounding and Bonding</h1>
                     <p>Monitor and maintain electrical grounding systems</p>
                 </div>
-                <button className="add-inspection-btn" onClick={() => setShowAddInspection(true)}>
+                <button className="action-button" onClick={() => setShowAddInspection(true)}>
                     <FontAwesomeIcon icon={faPlus} />
                     Add New Inspection
                 </button>
@@ -109,40 +99,37 @@ const GroundingAndBonding = () => {
                     <FontAwesomeIcon icon={faBolt} className="card-icon" />
                     <div className="card-content">
                         <h3>Total Locations</h3>
-                        <p className="card-value">{inspections.length}</p>
+                        <p className="card-value">2</p>
                     </div>
                 </div>
+
                 <div className="overview-card">
                     <FontAwesomeIcon icon={faCheckCircle} className="card-icon success" />
                     <div className="card-content">
                         <h3>Passed Inspections</h3>
-                        <p className="card-value">
-                            {inspections.filter(insp => insp.result === 'Pass').length}
-                        </p>
+                        <p className="card-value">1</p>
                     </div>
                 </div>
+
                 <div className="overview-card">
                     <FontAwesomeIcon icon={faExclamationTriangle} className="card-icon warning" />
                     <div className="card-content">
                         <h3>Needs Attention</h3>
-                        <p className="card-value">
-                            {inspections.filter(insp => insp.result === 'Attention Required' || insp.result === 'Fail').length}
-                        </p>
+                        <p className="card-value">1</p>
                     </div>
                 </div>
+
                 <div className="overview-card">
-                    <FontAwesomeIcon icon={faCalendarAlt} className="card-icon primary" />
+                    <FontAwesomeIcon icon={faCalendar} className="card-icon" />
                     <div className="card-content">
                         <h3>Due for Inspection</h3>
-                        <p className="card-value">
-                            {inspections.filter(insp => new Date(insp.nextInspectionDue) <= new Date()).length}
-                        </p>
+                        <p className="card-value">2</p>
                     </div>
                 </div>
             </div>
 
-            <div className="inspections-table-container">
-                <table className="inspections-table">
+            <div className="table-container">
+                <table>
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -158,7 +145,7 @@ const GroundingAndBonding = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {inspections.map(inspection => (
+                        {inspections.map((inspection) => (
                             <tr key={inspection.id}>
                                 <td>{inspection.date}</td>
                                 <td>{inspection.locationId}</td>
@@ -168,13 +155,13 @@ const GroundingAndBonding = () => {
                                 <td>{inspection.bondingContinuity}</td>
                                 <td>{inspection.electrodeCondition}</td>
                                 <td>
-                                    <span className={`status-badge ${inspection.result.toLowerCase().replace(' ', '-')}`}>
+                                    <span className={`status-badge ${inspection.result === 'Pass' ? 'pass' : 'attention'}`}>
                                         {inspection.result}
                                     </span>
                                 </td>
-                                <td>{inspection.nextInspectionDue}</td>
+                                <td>{inspection.nextDue}</td>
                                 <td>
-                                    <button className="view-btn">View Details</button>
+                                    <button className="view-details-btn">View Details</button>
                                 </td>
                             </tr>
                         ))}

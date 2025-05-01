@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import placeholderImage from '../../assets/placeholder.png';
 import './PropertyDashboard.css';
 import MainHeader from '../common/MainHeader/MainHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTools } from '@fortawesome/free-solid-svg-icons';
+import { faTools, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import EmergencyPreparedness from '../EmergencyPreparedness/EmergencyPreparedness';
 
 export default function PropertyDashboard() {
   const [roofSafetyIssues, setRoofSafetyIssues] = useState(0);
@@ -178,23 +179,23 @@ export default function PropertyDashboard() {
       case 'staff':
         navigate(`/properties/${id}/staff-safety`);
         break;
-      case 'building':
-        navigate(`/properties/${id}/building-maintenance`);
-        break;
       case 'equipment':
-        navigate('/equipment-safety');
+        navigate(`/properties/${id}/equipment-safety`);
         break;
       case 'electrical':
-        navigate('/electrical-safety');
+        navigate(`/properties/${id}/electrical-safety`);
         break;
-      case 'emergency':
-        navigate(`/properties/${id}/emergency-preparedness`);
+      case 'settings':
+        navigate(`/properties/${id}/settings`);
         break;
       case 'profile':
         navigate(`/properties/${id}/profile`);
         break;
-      case 'settings':
-        navigate('/settings');
+      case 'building':
+        navigate(`/properties/${id}/building-maintenance`);
+        break;
+      case 'emergency':
+        navigate(`/properties/${id}/emergency-preparedness`);
         break;
       default:
         setActiveSection(path);
@@ -321,3 +322,13 @@ export default function PropertyDashboard() {
     </div>
   );
 }
+
+const EmergencyPreparednessPlaceholder = () => (
+  <div className="maintenance-page">
+    <MainHeader />
+    <div className="maintenance-content">
+      <h1>Emergency Preparedness</h1>
+      <p>This section is under development.</p>
+    </div>
+  </div>
+);

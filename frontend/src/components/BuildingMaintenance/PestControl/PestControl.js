@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import MainHeader from '../../common/MainHeader/MainHeader';
-import { FaUpload, FaCheck, FaExclamationTriangle, FaClock, FaBug } from 'react-icons/fa';
+import { FaUpload, FaCheck, FaExclamationTriangle, FaClock, FaBug, FaPlus } from 'react-icons/fa';
 import '../shared/MaintenanceStyles.css';
 import './PestControl.css';
 
-const PestControl = ({ hideHeader }) => {
+const PestControl = ({ propertyId }) => {
   const [status] = useState('good');
   const [lastTreatment] = useState('2024-03-05');
   const [nextService] = useState('2024-06-05');
@@ -43,111 +42,112 @@ const PestControl = ({ hideHeader }) => {
   ]);
 
   return (
-    <div className="maintenance-page">
-      {!hideHeader && <MainHeader />}
-      <div className="maintenance-content">
-        <div className="content-header">
-          <h1>Pest Control Management</h1>
-          <button className="action-button">
-            <FaUpload /> Upload Report
-          </button>
+    <div className="pest-control">
+      <div className="page-header">
+        <div className="header-content">
+          <h1>Pest Control</h1>
+          <p>Monitor and maintain pest prevention</p>
         </div>
-
-        {/* Status Cards */}
-        <div className="status-grid">
-          <div className="status-card">
-            <h3>Current Status</h3>
-            <p className={`status-badge ${status}`}>
-              <FaBug />
-              {status === 'good' && 'No Active Issues'}
-              {status === 'warning' && 'Treatment Due'}
-              {status === 'critical' && 'Requires Attention'}
-            </p>
-          </div>
-          <div className="status-card">
-            <h3>Last Treatment</h3>
-            <p>{new Date(lastTreatment).toLocaleDateString()}</p>
-          </div>
-          <div className="status-card">
-            <h3>Next Service</h3>
-            <p>{new Date(nextService).toLocaleDateString()}</p>
-          </div>
-        </div>
-
-        {/* Treatment History */}
-        <section className="treatment-section">
-          <h2>Treatment History</h2>
-          <div className="table-container">
-            <table className="treatment-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Areas Treated</th>
-                  <th>Contractor</th>
-                  <th>Findings</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {treatments.map(treatment => (
-                  <tr key={treatment.id}>
-                    <td>{new Date(treatment.date).toLocaleDateString()}</td>
-                    <td>{treatment.type}</td>
-                    <td>{treatment.areas.join(', ')}</td>
-                    <td>{treatment.contractor}</td>
-                    <td>{treatment.findings}</td>
-                    <td>
-                      <span className={`status-pill ${treatment.status}`}>
-                        {treatment.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Active Issues */}
-        <section className="issues-section">
-          <h2>Active Issues</h2>
-          <div className="issues-grid">
-            {activeIssues.map(issue => (
-              <div key={issue.id} className="issue-card">
-                <div className="issue-header">
-                  <h3>{issue.area}</h3>
-                  <span className={`severity-pill ${issue.severity}`}>
-                    {issue.severity}
-                  </span>
-                </div>
-                <div className="issue-details">
-                  <p><strong>Type:</strong> {issue.type}</p>
-                  <p><strong>Reported:</strong> {new Date(issue.reported).toLocaleDateString()}</p>
-                  <p><strong>Status:</strong> 
-                    <span className={`status-pill ${issue.status}`}>
-                      {issue.status}
-                    </span>
-                  </p>
-                  <p><strong>Treatment:</strong> {issue.treatment}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Document Upload Section */}
-        <section className="documents-section">
-          <h2>Treatment Reports</h2>
-          <div className="upload-area">
-            <div className="upload-box">
-              <FaUpload />
-              <p>Drop pest control reports here or click to upload</p>
-              <span>Accepted formats: PDF, JPG, PNG (max 10MB)</span>
-            </div>
-          </div>
-        </section>
+        <button className="action-button">
+          <FaPlus />
+          Add New Inspection
+        </button>
       </div>
+
+      {/* Status Cards */}
+      <div className="status-grid">
+        <div className="status-card">
+          <h3>Current Status</h3>
+          <p className={`status-badge ${status}`}>
+            <FaBug />
+            {status === 'good' && 'No Active Issues'}
+            {status === 'warning' && 'Treatment Due'}
+            {status === 'critical' && 'Requires Attention'}
+          </p>
+        </div>
+        <div className="status-card">
+          <h3>Last Treatment</h3>
+          <p>{new Date(lastTreatment).toLocaleDateString()}</p>
+        </div>
+        <div className="status-card">
+          <h3>Next Service</h3>
+          <p>{new Date(nextService).toLocaleDateString()}</p>
+        </div>
+      </div>
+
+      {/* Treatment History */}
+      <section className="treatment-section">
+        <h2>Treatment History</h2>
+        <div className="table-container">
+          <table className="treatment-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Areas Treated</th>
+                <th>Contractor</th>
+                <th>Findings</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {treatments.map(treatment => (
+                <tr key={treatment.id}>
+                  <td>{new Date(treatment.date).toLocaleDateString()}</td>
+                  <td>{treatment.type}</td>
+                  <td>{treatment.areas.join(', ')}</td>
+                  <td>{treatment.contractor}</td>
+                  <td>{treatment.findings}</td>
+                  <td>
+                    <span className={`status-pill ${treatment.status}`}>
+                      {treatment.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Active Issues */}
+      <section className="issues-section">
+        <h2>Active Issues</h2>
+        <div className="issues-grid">
+          {activeIssues.map(issue => (
+            <div key={issue.id} className="issue-card">
+              <div className="issue-header">
+                <h3>{issue.area}</h3>
+                <span className={`severity-pill ${issue.severity}`}>
+                  {issue.severity}
+                </span>
+              </div>
+              <div className="issue-details">
+                <p><strong>Type:</strong> {issue.type}</p>
+                <p><strong>Reported:</strong> {new Date(issue.reported).toLocaleDateString()}</p>
+                <p><strong>Status:</strong> 
+                  <span className={`status-pill ${issue.status}`}>
+                    {issue.status}
+                  </span>
+                </p>
+                <p><strong>Treatment:</strong> {issue.treatment}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Document Upload Section */}
+      <section className="documents-section">
+        <h2>Treatment Reports</h2>
+        <div className="upload-area">
+          <div className="upload-box">
+            <FaUpload />
+            <p>Drop pest control reports here or click to upload</p>
+            <span>Accepted formats: PDF, JPG, PNG (max 10MB)</span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
