@@ -52,6 +52,7 @@ const Dashboard = () => {
   });
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchPopup, setShowSearchPopup] = useState(false);
+  const [userName, setUserName] = useState('');
 
   // Load properties and recent properties
   useEffect(() => {
@@ -73,6 +74,30 @@ const Dashboard = () => {
     }, 100);
 
     return () => clearInterval(checkInterval);
+  }, []);
+
+  // Fetch user name on mount
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUserName(`${userData.firstName} ${userData.lastName}`.trim() || 'User');
+        } else {
+          setUserName('User');
+        }
+      } catch (error) {
+        setUserName('User');
+      }
+    };
+    fetchUserName();
   }, []);
 
   // Add this helper function
@@ -271,48 +296,31 @@ const Dashboard = () => {
         </div>
       </header>
       <main className='dashboard-content'>
-        <div className="welcome-section">
+        {/* Dashboard Title, Subtitle, and Add New Property Button */}
+        <div className="dashboard-title-row">
           <div>
-            <h1>Welcome back, Sam 👋</h1>
-            <p>Here's what's happening across your properties</p>
+            <h1 className="dashboard-title">Welcome, {userName} 👋</h1>
+            <p className="dashboard-subtitle">Here's an overview of your properties</p>
           </div>
-          <button className="add-property-floating-btn" onClick={() => setShowAddPropertyForm(true)}>
-            <FaPlus /> Add New Property
+          <button className="add-property-btn" onClick={() => setShowAddPropertyForm(true)}>
+            Add New Property
           </button>
         </div>
 
-        {/* Add back the search bar but make it trigger the popup */}
+        {/* Search Bar */}
         <div className="search-container" onClick={() => setShowSearchPopup(true)}>
-          <div className="search-bar">
+          <div className="search-bar search-bar-full-width">
             <FaSearch className="search-icon" />
             <input
               type="text"
-              placeholder="Search properties by name or address..."
-              readOnly // Make it read-only since it will open popup
+              placeholder="Search by property"
+              readOnly
               value=""
             />
           </div>
         </div>
 
-        <div className="compliance-summary">
-          <div className="summary-card red">
-            <h3>{complianceStats.overdueIssues}</h3>
-            <p>Overdue Issues</p>
-          </div>
-          <div className="summary-card orange">
-            <h3>{complianceStats.inspectionsDue}</h3>
-            <p>Inspections Due</p>
-          </div>
-          <div className="summary-card green">
-            <h3>{complianceStats.complianceRate}%</h3>
-            <p>Properties Compliant</p>
-          </div>
-          <div className="summary-card blue">
-            <h3>{complianceStats.expiringDocs}</h3>
-            <p>Documents Expiring</p>
-          </div>
-        </div>
-
+        {/* Recently Viewed Properties (keep as is) */}
         <div className="recent-properties">
           <div className="recent-properties-header">
             <h2 className="recent-properties-title">Recently Viewed Properties</h2>
@@ -343,21 +351,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="actions-panel">
-          <h2><FaTasks /> My Actions</h2>
-          <div className="action-items">
-            <div className="action-item">
-              <div className="action-content">
-                <h4>Complete Fire Safety Inspection</h4>
-                <p>Avalon House</p>
-              </div>
-              <span className="due-date">Due Today</span>
-            </div>
-          </div>
-        </div>
-
+        {/* Overview Section (Property Cards) */}
         <div className="properties-overview">
-          <h2 className="section-title">Properties Overview</h2>
+          <h2 className="section-title">Overview</h2>
           <div className="properties-grid">
             {(searchTerm ? filteredProperties : properties).map(property => (
               <PropertyCard

@@ -104,19 +104,43 @@ body {
   text-align: left;
 }
 
-.input-field {
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 12px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  color: #637587;
+  font-size: 16px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.input-with-icon .input-field {
+  width: 100%;
+  height: 48px;
+  padding: 0 50px;
   border: 1px solid var(--input-border);
-  border-radius: 15px;
+  border-radius: 8px;
   font-size: 16px;
   background-color: var(--input-background);
   color: var(--text-color);
+  box-sizing: border-box;
 }
 
-.input-field:focus {
+.input-with-icon .input-field:focus {
   border-color: var(--primary-color);
   outline: none;
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.input-with-icon .input-field::placeholder {
+  color: #637587;
+  opacity: 0.7;
 }
 
 .remember-forgot {
@@ -196,27 +220,9 @@ body {
   font-weight: 500;
 }
 
-/* Add these new styles */
-.input-with-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-icon {
-  position: absolute;
-  left: 12px;
-  color: #637587;
-  font-size: 16px;
-}
-
-.input-with-icon .input-field {
-  padding-left: 40px;
-}
-
 .toggle-password {
   position: absolute;
-  right: 12px;
+  right: 16px;
   background: none;
   border: none;
   color: #637587;
@@ -224,6 +230,10 @@ body {
   padding: 0;
   display: flex;
   align-items: center;
+  z-index: 2;
+  height: 24px;
+  width: 24px;
+  justify-content: center;
 }
 
 .captcha-container {

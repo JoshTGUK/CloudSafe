@@ -152,58 +152,122 @@
 
 .documents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  padding: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 24px;
 }
+
 .document-card {
+  position: relative;
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(21,116,246,0.08);
-  padding: 24px 20px 20px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 200px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .document-card:hover {
-  box-shadow: 0 4px 16px rgba(21,116,246,0.14);
-  transform: translateY(-2px);
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transform: none;
 }
+
+.document-card.selected {
+  background-color: #e8f0fe;
+  border-color: #1a73e8;
+}
+
 .doc-icon {
-  font-size: 2.2rem;
-  color: #1574F6;
-  margin-bottom: 12px;
-}
-.doc-info h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #1a1f36;
-  margin-bottom: 6px;
-}
-.doc-info > div {
-  font-size: 0.98rem;
-  color: #637587;
-  margin-bottom: 4px;
-}
-.doc-actions {
+  flex: 1;
   display: flex;
-  gap: 8px;
-  margin-top: 8px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #5f6368;
+  margin-bottom: 8px;
+  padding: 16px;
 }
+
+.doc-info {
+  padding: 8px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.doc-info h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.doc-info > div {
+  font-size: 0.75rem;
+  color: #5f6368;
+  margin-top: 4px;
+}
+
+.doc-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+  gap: 4px;
+  background: white;
+  border-radius: 4px;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.document-card:hover .doc-actions {
+  display: flex;
+}
+
 .doc-actions button {
-  background: #f5f6fa;
-  border: 1px solid #e5e7eb;
-  color: #1574F6;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 1em;
+  background: transparent;
+  border: none;
+  color: #5f6368;
+  padding: 6px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .doc-actions button:hover {
-  background: #1574F6;
-  color: #fff;
+  background: #f1f3f4;
+  color: #202124;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-pill.active {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.status-pill.expired {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+.status-pill.missing {
+  background-color: #fef7e0;
+  color: #b06000;
 }
 
 .documents-footer {
