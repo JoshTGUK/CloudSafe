@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaEnvelope } from 'react-icons/fa';
-import allSafeLogo from '../../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../../assets/cloudsafe-logo.png';
 import './ForgotPassword.css';
 
 const ForgotPassword = () => {

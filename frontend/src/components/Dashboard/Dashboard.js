@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Dashboard.css';
-import allSafeLogo from '../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../assets/cloudsafe-logo.png';
 import placeholderImage from '../../assets/placeholder.png';
 import AddPropertyForm from '../Add Property Dashboard/AddPropertyForm';
 import { toast } from 'react-toastify';

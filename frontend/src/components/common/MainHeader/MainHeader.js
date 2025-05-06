@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import allSafeLogo from '../../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../../assets/cloudsafe-logo.png';
 import './MainHeader.css';
 
 const UserAvatar = () => (
