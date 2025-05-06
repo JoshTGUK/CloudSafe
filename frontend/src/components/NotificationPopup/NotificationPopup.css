@@ -1,7 +1,7 @@
 .notification-popup {
   position: absolute;
   top: 60px;
-  right: 80px;
+  right: 0;
   width: 380px;
   max-height: 480px;
   overflow-y: auto;
@@ -145,11 +145,26 @@
 .notification-popup::before {
   content: '';
   position: absolute;
-  top: -8px;
-  right: 85px;
-  width: 16px;
-  height: 16px;
+  top: -10px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
   background: white;
   transform: rotate(45deg);
   box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Add this to create a hover area between icon and popup */
+.icon {
+  position: relative;
+}
+
+.icon::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: transparent;
 } 

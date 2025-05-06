@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import MainHeader from '../common/MainHeader/MainHeader.js';
 import './Dashboard.css';
 import allSafeLogo from '../../assets/ALL-Safe-logo.png';
 import placeholderImage from '../../assets/placeholder.png';
@@ -25,12 +26,6 @@ import SearchPopup from '../SearchPopup/SearchPopup';
 // eslint-disable-next-line no-unused-vars
 const API_URL = process.env.REACT_APP_API_URL;
 
-const UserAvatar = () => (
-    <div className="user-avatar">
-        <i className="fas fa-user"></i>
-    </div>
-);
-
 const Dashboard = () => {
   const [showAddPropertyForm, setShowAddPropertyForm] = useState(false);
   const [properties, setProperties] = useState([]);
@@ -53,6 +48,19 @@ const Dashboard = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearchPopup, setShowSearchPopup] = useState(false);
 
+  // Add this helper function at the start of the Dashboard component
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return placeholderImage;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    
+    // If the URL already contains 'uploads/', use it as is
+    if (imageUrl.includes('uploads/')) {
+      return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
+    }
+    // Otherwise, add 'uploads/' to the path
+    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
+  };
+
   // Load properties and recent properties
   useEffect(() => {
     fetchProperties(); // Add this back to load properties initially
@@ -74,19 +82,6 @@ const Dashboard = () => {
 
     return () => clearInterval(checkInterval);
   }, []);
-
-  // Add this helper function
-  const getImageUrl = (imageUrl) => {
-    if (!imageUrl) return placeholderImage;
-    if (imageUrl.startsWith('http')) return imageUrl;
-    
-    // If the URL already contains 'uploads/', use it as is
-    if (imageUrl.includes('uploads/')) {
-      return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
-    }
-    // Otherwise, add 'uploads/' to the path
-    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
-  };
 
   const fetchProperties = async () => {
     try {
@@ -233,62 +228,25 @@ const Dashboard = () => {
 
   return (
     <div className='main-container'>
-      <header className='dashboard-header'>
-        <img src={allSafeLogo} alt="ALL Safe Logo" className='logo' />
-        <div className='header-right'>
-          <nav className='nav-links'>
-            <Link to="/dashboard" className='nav-link active'>Dashboard</Link>
-            <Link to="/documents" className='nav-link'>Documents</Link>
-            <Link to="/inspections" className='nav-link'>Inspections</Link>
-            <Link to="/tasks" className='nav-link'>Tasks</Link>
-          </nav>
-          <div className='header-icons'>
-            <div 
-              className='icon' 
-              onClick={() => setShowSearchPopup(true)}
-            >
-              <FaSearch />
-            </div>
-            <div 
-              className='icon' 
-              onMouseEnter={() => setShowNotifications(true)}
-              onMouseLeave={() => setShowNotifications(false)}
-            >
-              <i className='fas fa-bell'></i>
-              <NotificationPopup isOpen={showNotifications} />
-            </div>
-            <div className='icon'><i className='fas fa-question-circle'></i></div>
-            <div className='user-avatar-container' onClick={() => setShowUserMenu(!showUserMenu)}>
-              <UserAvatar />
-              {showUserMenu && (
-                <div className='user-menu'>
-                  <Link to="/account-settings" onClick={() => setShowUserMenu(false)}>Account</Link>
-                  <button onClick={handleLogout}>Logout</button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
-      <main className='dashboard-content'>
+      <MainHeader />
+      <main className="dashboard-content">
         <div className="welcome-section">
           <div>
             <h1>Welcome back, Sam 👋</h1>
             <p>Here's what's happening across your properties</p>
           </div>
-          <button className="add-property-floating-btn" onClick={() => setShowAddPropertyForm(true)}>
+          <button className="add-property-btn" onClick={() => setShowAddPropertyForm(true)}>
             <FaPlus /> Add New Property
           </button>
         </div>
 
-        {/* Add back the search bar but make it trigger the popup */}
         <div className="search-container" onClick={() => setShowSearchPopup(true)}>
           <div className="search-bar">
             <FaSearch className="search-icon" />
             <input
               type="text"
               placeholder="Search properties by name or address..."
-              readOnly // Make it read-only since it will open popup
+              readOnly
               value=""
             />
           </div>
@@ -313,17 +271,14 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="recent-properties">
-          <div className="recent-properties-header">
-            <h2 className="recent-properties-title">Recently Viewed Properties</h2>
-          </div>
-          <div className="recent-properties-grid">
-            {recentProperties.map((property) => (
+        <div className="recently-viewed-section">
+          <h2>Recently Viewed Properties</h2>
+          <div className="recent-properties">
+            {recentProperties.map(property => (
               <div 
                 key={property.id} 
                 className="recent-property-card"
                 onClick={() => handlePropertyClick(property.id)}
-                style={{ cursor: 'pointer' }}
               >
                 <img 
                   src={getImageUrl(property.image_url)}
@@ -332,11 +287,11 @@ const Dashboard = () => {
                     e.target.onerror = null;
                     e.target.src = placeholderImage;
                   }}
-                  className="recent-property-image" 
+                  className="recent-property-image"
                 />
-                <div className="recent-property-info">
-                  <h3 className="recent-property-name">{property.name}</h3>
-                  <p className="recent-property-address">{property.address}</p>
+                <div className="property-info">
+                  <h3>{property.name}</h3>
+                  <p>{property.address}</p>
                 </div>
               </div>
             ))}
@@ -357,7 +312,7 @@ const Dashboard = () => {
         </div>
 
         <div className="properties-overview">
-          <h2 className="section-title">Properties Overview</h2>
+          <h2>Properties Overview</h2>
           <div className="properties-grid">
             {(searchTerm ? filteredProperties : properties).map(property => (
               <PropertyCard

@@ -541,6 +541,14 @@ img[src*="placeholder.png"] {
   gap: 20px;
 }
 
+.recent-property-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
 .recent-property-card {
   display: flex;
   align-items: center;
@@ -555,26 +563,18 @@ img[src*="placeholder.png"] {
   background: #e9ecf5;
 }
 
-.recent-property-image {
-  width: 48px;
-  height: 48px;
-  border-radius: 6px;
-  object-fit: cover;
-  margin-right: 16px;
-}
-
-.recent-property-info {
+.property-info {
   flex: 1;
 }
 
-.recent-property-name {
+.property-info h3 {
   font-size: 14px;
   font-weight: 500;
   color: #334151;
   margin: 0 0 4px 0;
 }
 
-.recent-property-address {
+.property-info p {
   font-size: 12px;
   color: #637587;
   margin: 0;
@@ -585,7 +585,7 @@ img[src*="placeholder.png"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 .welcome-section h1 {
@@ -625,10 +625,7 @@ img[src*="placeholder.png"] {
 }
 
 .compliance-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
+  display: none;
 }
 
 .summary-card {
@@ -668,13 +665,14 @@ img[src*="placeholder.png"] {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .compliance-summary {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   .welcome-section {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
+}
+
+/* Update recently viewed section spacing */
+.recently-viewed-section {
+  margin-top: 32px;
 }

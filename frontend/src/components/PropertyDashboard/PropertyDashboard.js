@@ -95,61 +95,70 @@ export default function PropertyDashboard() {
   }, [id]);
 
   useEffect(() => {
-    const fetchPropertyDetails = async () => {
+    const fetchPropertyDetails = async (propertyId) => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${propertyId}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
           }
         });
 
-        if (!response.ok) throw new Error('Failed to fetch property details');
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Property not found');
+          }
+          throw new Error('Failed to fetch property details');
+        }
 
         const data = await response.json();
-        
-        // Update property state
-        setProperty({
-          name: data.name,
-          address: data.address,
-          image_url: data.image_url ? `${process.env.REACT_APP_API_URL}/api/${data.image_url}` : null
-        });
-
-        // Update recently viewed properties immediately
-        const propertyToStore = {
-          id: parseInt(id),
-          name: data.name,
-          address: data.address,
-          image_url: data.image_url // Store just the path, not the full URL
-        };
-
-        // Get current recent properties
-        const storedRecent = localStorage.getItem('recentProperties');
-        let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
-        
-        // Remove this property if it exists
-        recentProps = recentProps.filter(p => p.id !== parseInt(id));
-        
-        // Add to start of list
-        recentProps.unshift(propertyToStore);
-        
-        // Keep only most recent 3
-        recentProps = recentProps.slice(0, 3);
-        
-        // Save to localStorage
-        localStorage.setItem('recentProperties', JSON.stringify(recentProps));
-
-        // Force a refresh by setting a flag in localStorage
-        localStorage.setItem('recentPropertiesUpdated', Date.now().toString());
-
+        return data;
       } catch (error) {
         console.error('Error fetching property details:', error);
+        throw error;
       }
     };
 
     if (id) {
-      fetchPropertyDetails();
+      fetchPropertyDetails(id)
+        .then((data) => {
+          // Update property state
+          setProperty({
+            name: data.name,
+            address: data.address,
+            image_url: data.image_url ? `${process.env.REACT_APP_API_URL}/api/${data.image_url}` : null
+          });
+
+          // Update recently viewed properties immediately
+          const propertyToStore = {
+            id: parseInt(id),
+            name: data.name,
+            address: data.address,
+            image_url: data.image_url // Store just the path, not the full URL
+          };
+
+          // Get current recent properties
+          const storedRecent = localStorage.getItem('recentProperties');
+          let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
+          
+          // Remove this property if it exists
+          recentProps = recentProps.filter(p => p.id !== parseInt(id));
+          
+          // Add to start of list
+          recentProps.unshift(propertyToStore);
+          
+          // Keep only most recent 3
+          recentProps = recentProps.slice(0, 3);
+          
+          // Save to localStorage
+          localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+
+          // Force a refresh by setting a flag in localStorage
+          localStorage.setItem('recentPropertiesUpdated', Date.now().toString());
+        })
+        .catch((error) => {
+          console.error('Error fetching property details:', error);
+        });
     }
   }, [id]);
 

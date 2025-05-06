@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import allSafeLogo from '../../../assets/ALL-Safe-logo.png';
+import NotificationPopup from '../../NotificationPopup/NotificationPopup';
+import { FaSearch, FaBell, FaQuestionCircle } from 'react-icons/fa';
 import './MainHeader.css';
 
 const UserAvatar = () => (
@@ -11,6 +13,7 @@ const UserAvatar = () => (
 
 export default function MainHeader() {
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,9 +41,16 @@ export default function MainHeader() {
           <Link to="/tasks" className="nav-link">Tasks</Link>
         </nav>
         <div className="header-icons">
-          <div className="icon"><i className="fas fa-search"></i></div>
-          <div className="icon"><i className="fas fa-bell"></i></div>
-          <div className="icon"><i className="fas fa-question-circle"></i></div>
+          <div className="icon"><FaSearch /></div>
+          <div 
+            className="icon"
+            onMouseEnter={() => setShowNotifications(true)}
+            onMouseLeave={() => setShowNotifications(false)}
+          >
+            <FaBell />
+            <NotificationPopup isOpen={showNotifications} />
+          </div>
+          <div className="icon"><FaQuestionCircle /></div>
           <div className="user-avatar-container" onClick={() => setShowUserMenu(!showUserMenu)}>
             <UserAvatar />
             {showUserMenu && (
