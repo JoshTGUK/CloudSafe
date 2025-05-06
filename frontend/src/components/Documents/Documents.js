@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import MainHeader from '../common/MainHeader/MainHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faTable, faThLarge, faSyncAlt, faFilter, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faTable, faThLarge, faSyncAlt, faFilter, faTimesCircle, faEye, faDownload, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import './Documents.css';
 
 export default function Documents() {
@@ -163,16 +163,27 @@ export default function Documents() {
           <div className="documents-grid">
             {filteredDocs.map(doc => (
               <div key={doc.id} className="document-card">
-                <div className="doc-icon"><FontAwesomeIcon icon={faFileAlt} /></div>
+                <div className="doc-actions">
+                  <button title="View">
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
+                  <button title="Download">
+                    <FontAwesomeIcon icon={faDownload} />
+                  </button>
+                  <button title="Edit">
+                    <FontAwesomeIcon icon={faPencilAlt} />
+                  </button>
+                  <button title="Delete">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+                <div className="doc-icon">
+                  <FontAwesomeIcon icon={faFileAlt} />
+                </div>
                 <div className="doc-info">
                   <h3>{doc.name}</h3>
-                  <div>{doc.type} – <span className={statusColor(doc.status)}>{doc.status}</span></div>
-                  <div>{doc.zone}</div>
-                  <div className="doc-actions">
-                    <button title="View"><span role="img" aria-label="View">👁️</span></button>
-                    <button title="Download"><span role="img" aria-label="Download">⬇️</span></button>
-                    <button title="Edit"><span role="img" aria-label="Edit">✏️</span></button>
-                    <button title="Delete"><span role="img" aria-label="Delete">🗑️</span></button>
+                  <div>
+                    {doc.type} • <span className={statusColor(doc.status)}>{doc.status}</span>
                   </div>
                 </div>
               </div>

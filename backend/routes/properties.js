@@ -5,7 +5,7 @@ const path = require('path');
 const Property = require('../models/Property');
 const fs = require('fs');
 const db = require('../config/db');
-const authenticateToken = require('../middleware/auth');
+const { authenticateToken } = require('../middleware/auth');
 const anchorPointsRouter = require('./anchorPoints');
 
 // Before setting up routes

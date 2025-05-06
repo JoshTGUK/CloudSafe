@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaBell, FaCalendarAlt, FaFileAlt, FaExclamationTriangle, FaFilter } from 'react-icons/fa';
 import './NotificationsPage.css';
-import allSafeLogo from '../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../assets/cloudsafe-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const NotificationsPage = () => {

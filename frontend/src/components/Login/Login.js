@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ReCAPTCHA from 'react-google-recaptcha';
 import './Login.css';
-import allSafeLogo from '../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../assets/cloudsafe-logo.png';
 import { FaEye, FaEyeSlash, FaLock, FaUser } from 'react-icons/fa';
 import { setToken } from '../../utils/auth';
 

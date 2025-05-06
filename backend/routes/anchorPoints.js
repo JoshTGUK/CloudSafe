@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true }); // Important: mergeParams allows access to propertyId
-const authenticateToken = require('../middleware/auth');
+const { authenticateToken } = require('../middleware/auth');
 const db = require('../config/db');
 const multer = require('multer');
 const path = require('path');

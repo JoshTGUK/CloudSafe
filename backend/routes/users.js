@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 // Get user profile
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
+        console.log('req.user:', req.user);
         const userId = req.user.id;
         console.log('Fetching profile for user:', userId);
         

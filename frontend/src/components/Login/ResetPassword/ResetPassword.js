@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
-import allSafeLogo from '../../../assets/ALL-Safe-logo.png';
+import allSafeLogo from '../../../assets/cloudsafe-logo.png';
 import './ResetPassword.css';
 
 const ResetPassword = () => {

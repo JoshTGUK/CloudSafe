@@ -4,7 +4,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import './PropertyCard.css';
 import placeholderImage from '../../assets/placeholder.png';
 
-const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
+const PropertyCard = ({ property, onDelete, onPropertyClick, onEdit }) => {
   const [imageError, setImageError] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const navigate = useNavigate();
@@ -41,34 +41,47 @@ const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
     onPropertyClick(property.id);
   };
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    if (onEdit) {
+      onEdit(property);
+    } else {
+      navigate(`/editproperty/${property.id}`);
+    }
+  };
+
   return (
     <>
       <div className="property-card" onClick={handleClick}>
-        <div className="property-image">
+        <div className="property-image property-image-box">
           <img
             src={getImageUrl(property.image_url)}
             alt={property.name}
             onError={(e) => {
-              console.log('Image load error for:', {
-                property: property.name,
-                attemptedUrl: e.target.src
-              });
               setImageError(true);
               e.target.src = placeholderImage;
             }}
           />
         </div>
-        <div className="property-info">
-          <h3>{property.name}</h3>
-          <p>{property.address}</p>
+        <div className="property-info property-info-left">
+          <h3 className="property-name">{property.name}</h3>
+          <p className="property-address">{property.address}</p>
         </div>
         <div className="property-actions">
           <button 
-            className="delete-button"
+            className="action-button edit"
+            onClick={handleEdit}
+            title="Edit Property"
+          >
+            <FaEdit />
+          </button>
+          <button 
+            className="action-button delete"
             onClick={(e) => {
               e.stopPropagation();
               setShowConfirmDelete(true);
             }}
+            title="Delete Property"
           >
             <FaTrash />
           </button>
