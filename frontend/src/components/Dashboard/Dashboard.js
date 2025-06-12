@@ -16,7 +16,8 @@ import {
   FaCheckCircle, 
   FaFileAlt,
   FaBell,
-  FaTasks
+  FaTasks,
+  FaTimes
 } from 'react-icons/fa';
 import { FaQuestionCircle, FaUserCircle } from 'react-icons/fa';
 import NotificationPopup from '../NotificationPopup/NotificationPopup';
@@ -32,14 +33,14 @@ const UserAvatar = () => (
 );
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showAddPropertyForm, setShowAddPropertyForm] = useState(false);
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ show: false, index: null });
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [recentProperties, setRecentProperties] = useState([]);
@@ -56,25 +57,16 @@ const Dashboard = () => {
 
   // Load properties and recent properties
   useEffect(() => {
-    fetchProperties(); // Add this back to load properties initially
-    
-    const loadRecentProperties = () => {
+    const loadData = async () => {
+      await fetchProperties();
       const storedRecent = localStorage.getItem('recentProperties');
       if (storedRecent) {
-        const recentProps = JSON.parse(storedRecent);
-        setRecentProperties(recentProps);
+        setRecentProperties(JSON.parse(storedRecent));
       }
     };
-
-    loadRecentProperties();
     
-    // Set up an interval to check for updates
-    const checkInterval = setInterval(() => {
-      loadRecentProperties();
-    }, 100);
-
-    return () => clearInterval(checkInterval);
-  }, []);
+    loadData();
+  }, [location.pathname]);
 
   // Fetch user name on mount
   useEffect(() => {
@@ -126,21 +118,42 @@ const Dashboard = () => {
       if (!response.ok) throw new Error('Failed to fetch properties');
 
       const data = await response.json();
-      // Debug log to see exact data structure
-      console.log('Raw properties data:', {
-        allProperties: data,
-        firstProperty: data[0],
-        imageFields: data.map(p => ({
-          id: p.id,
-          image_url: p.image_url,
-          constructedUrl: `${process.env.REACT_APP_API_URL}/api/uploads/${p.image_url}`
-        }))
-      });
-
       setProperties(data);
       
-      if (recentProperties.length === 0) {
-        setRecentProperties(data.slice(0, 3));
+      // Handle initial recent properties
+      const storedRecent = localStorage.getItem('recentProperties');
+      if (!storedRecent && data.length > 0) {
+        // Initialize with first 4 properties if no recent properties exist
+        const initialRecent = data.slice(0, Math.min(4, data.length)).map(p => ({
+          id: p.id,
+          name: p.name,
+          address: p.address,
+          image_url: p.image_url
+        }));
+        localStorage.setItem('recentProperties', JSON.stringify(initialRecent));
+        setRecentProperties(initialRecent);
+      } else if (storedRecent) {
+        // Load existing recent properties and ensure we have 4 if possible
+        let recentProps = JSON.parse(storedRecent);
+        
+        // If we have less than 4 recent properties, add more from the main list
+        if (recentProps.length < 4 && data.length > recentProps.length) {
+          const existingIds = new Set(recentProps.map(p => p.id));
+          const additionalProps = data
+            .filter(p => !existingIds.has(p.id))
+            .slice(0, 4 - recentProps.length)
+            .map(p => ({
+              id: p.id,
+              name: p.name,
+              address: p.address,
+              image_url: p.image_url
+            }));
+          
+          recentProps = [...recentProps, ...additionalProps];
+          localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+        }
+        
+        setRecentProperties(recentProps);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -153,8 +166,25 @@ const Dashboard = () => {
 
   const addProperty = async (propertyData) => {
     try {
-        // propertyData is now the response data from AddPropertyForm
+        // Add to main properties list
         setProperties(prevProperties => [...prevProperties, propertyData.property]);
+        
+        // Add to recent properties if we have less than 4
+        const storedRecent = localStorage.getItem('recentProperties');
+        let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
+        
+        if (recentProps.length < 4) {
+          const propertyToStore = {
+            id: propertyData.property.id,
+            name: propertyData.property.name,
+            address: propertyData.property.address,
+            image_url: propertyData.property.image_url
+          };
+          recentProps.push(propertyToStore);
+          localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+          setRecentProperties(recentProps);
+        }
+        
         toast.success('Property added successfully');
         setShowAddPropertyForm(false);
     } catch (error) {
@@ -179,7 +209,17 @@ const Dashboard = () => {
             throw new Error(error.message || 'Failed to delete property');
         }
 
+        // Update main properties list
         setProperties(properties.filter(p => p.id !== propertyId));
+        
+        // Update recent properties
+        const storedRecent = localStorage.getItem('recentProperties');
+        if (storedRecent) {
+            const recentProps = JSON.parse(storedRecent).filter(p => p.id !== propertyId);
+            localStorage.setItem('recentProperties', JSON.stringify(recentProps));
+            setRecentProperties(recentProps);
+        }
+
         toast.success('Property deleted successfully');
     } catch (error) {
         console.error('Error deleting property:', error);
@@ -200,57 +240,103 @@ const Dashboard = () => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
     
+    if (!term.trim()) {
+      setFilteredProperties([]);
+      return;
+    }
+
     const filtered = properties.filter(property => 
       property.name.toLowerCase().includes(term) ||
-      property.address.toLowerCase().includes(term)
+      property.address.toLowerCase().includes(term) ||
+      (property.description && property.description.toLowerCase().includes(term))
     );
+
     setFilteredProperties(filtered);
   };
 
-  // Update the handlePropertyClick function
-  const handlePropertyClick = async (propertyId) => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/properties/${propertyId}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        }
-      });
+  const updateRecentProperties = (propertyId) => {
+    // Find the property in our list
+    const property = properties.find(p => p.id === propertyId);
+    if (!property) return;
 
-      if (!response.ok) throw new Error('Failed to fetch property details');
+    // Get current recent properties
+    const currentRecent = JSON.parse(localStorage.getItem('recentProperties') || '[]');
+    
+    // Create new array without the clicked property
+    const filteredRecent = currentRecent.filter(p => p.id !== propertyId);
+    
+    // Add the clicked property to the front
+    const updatedRecent = [
+      {
+        id: property.id,
+        name: property.name,
+        address: property.address,
+        image_url: property.image_url
+      },
+      ...filteredRecent
+    ];
 
-      const propertyData = await response.json();
-      console.log('Property click data:', {
-        raw: propertyData,
-        imageUrl: propertyData.image_url,
-        constructedUrl: `${process.env.REACT_APP_API_URL}/api/uploads/${propertyData.image_url}`
-      });
-
-      const propertyToStore = {
-        id: propertyData.id,
-        name: propertyData.name,
-        address: propertyData.address,
-        image_url: propertyData.image_url // Store the raw image URL
-      };
-
-      // Log what we're storing
-      console.log('Storing in recent:', propertyToStore);
-
-      const storedRecent = localStorage.getItem('recentProperties');
-      let recentProps = storedRecent ? JSON.parse(storedRecent) : [];
-      recentProps = recentProps.filter(p => p.id !== propertyId);
-      recentProps.unshift(propertyToStore);
-      recentProps = recentProps.slice(0, 3);
+    // If we have less than 4 properties, add more from the main list
+    if (updatedRecent.length < 4 && properties.length > updatedRecent.length) {
+      const existingIds = new Set(updatedRecent.map(p => p.id));
+      const additionalProps = properties
+        .filter(p => !existingIds.has(p.id))
+        .slice(0, 4 - updatedRecent.length)
+        .map(p => ({
+          id: p.id,
+          name: p.name,
+          address: p.address,
+          image_url: p.image_url
+        }));
       
-      localStorage.setItem('recentProperties', JSON.stringify(recentProps));
-      setRecentProperties(recentProps);
-
-      navigate(`/propertydashboard/${propertyId}`);
-    } catch (error) {
-      console.error('Error updating recent properties:', error);
-      navigate(`/propertydashboard/${propertyId}`);
+      updatedRecent.push(...additionalProps);
     }
+
+    // Keep only 4 most recent
+    const finalRecent = updatedRecent.slice(0, 4);
+    
+    // Update localStorage and state
+    localStorage.setItem('recentProperties', JSON.stringify(finalRecent));
+    setRecentProperties(finalRecent);
   };
+
+  const handlePropertyClick = (propertyId) => {
+    updateRecentProperties(propertyId);
+    navigate(`/propertydashboard/${propertyId}`);
+  };
+
+  // Render the recent properties section
+  const RecentPropertiesSection = () => (
+    <div className="recent-properties">
+      <div className="recent-properties-header">
+        <h2 className="recent-properties-title">Recently Viewed Properties</h2>
+      </div>
+      <div className="recent-properties-grid">
+        {recentProperties.map((property) => (
+          <div 
+            key={property.id} 
+            className="recent-property-card"
+            onClick={() => handlePropertyClick(property.id)}
+            style={{ cursor: 'pointer' }}
+          >
+            <img 
+              src={getImageUrl(property.image_url)}
+              alt={property.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = placeholderImage;
+              }}
+              className="recent-property-image" 
+            />
+            <div className="recent-property-info">
+              <h3 className="recent-property-name">{property.name}</h3>
+              <p className="recent-property-address">{property.address}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   if (isLoading) {
     return <div className="loading">Loading...</div>;
@@ -308,48 +394,45 @@ const Dashboard = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="search-container" onClick={() => setShowSearchPopup(true)}>
-          <div className="search-bar search-bar-full-width">
+        <div className="search-container">
+          <div className="search-bar search-bar-full-width" onClick={() => setShowSearchPopup(true)}>
             <FaSearch className="search-icon" />
             <input
               type="text"
-              placeholder="Search by property"
-              readOnly
-              value=""
+              placeholder="Search by property name or address..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="search-input"
             />
+            {searchTerm && (
+              <button 
+                className="clear-search" 
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent popup from opening when clearing
+                  setSearchTerm('');
+                  setFilteredProperties([]);
+                }}
+              >
+                <FaTimes />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Recently Viewed Properties (keep as is) */}
-        <div className="recent-properties">
-          <div className="recent-properties-header">
-            <h2 className="recent-properties-title">Recently Viewed Properties</h2>
-          </div>
-          <div className="recent-properties-grid">
-            {recentProperties.map((property) => (
-              <div 
-                key={property.id} 
-                className="recent-property-card"
-                onClick={() => handlePropertyClick(property.id)}
-                style={{ cursor: 'pointer' }}
-              >
-                <img 
-                  src={getImageUrl(property.image_url)}
-                  alt={property.name}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = placeholderImage;
-                  }}
-                  className="recent-property-image" 
-                />
-                <div className="recent-property-info">
-                  <h3 className="recent-property-name">{property.name}</h3>
-                  <p className="recent-property-address">{property.address}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Add SearchPopup component */}
+        <SearchPopup
+          isOpen={showSearchPopup}
+          onClose={() => setShowSearchPopup(false)}
+          properties={properties}
+          searchTerm={searchTerm}
+          onSearchChange={(value) => {
+            setSearchTerm(value);
+            handleSearch({ target: { value } });
+          }}
+          onPropertyClick={handlePropertyClick}
+        />
+
+        <RecentPropertiesSection />
 
         {/* Overview Section (Property Cards) */}
         <div className="properties-overview">
@@ -382,15 +465,6 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-
-        <SearchPopup 
-          isOpen={showSearchPopup}
-          onClose={() => setShowSearchPopup(false)}
-          properties={properties}
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          onPropertyClick={handlePropertyClick}
-        />
       </main>
     </div>
   );

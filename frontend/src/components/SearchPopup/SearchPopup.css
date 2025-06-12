@@ -36,21 +36,26 @@
 }
 
 .back-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   background: none;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 8px;
   color: #334151;
   font-size: 14px;
   cursor: pointer;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  width: fit-content;
 }
 
 .back-button:hover {
   background-color: #e9ecef;
+}
+
+.back-button svg {
+  font-size: 12px;
 }
 
 .clear-search {

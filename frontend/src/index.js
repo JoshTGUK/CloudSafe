@@ -37,6 +37,7 @@ import SecuritySettings from './components/Settings/SecuritySettings/SecuritySet
 import BrandingSettings from './components/Settings/BrandingSettings/BrandingSettings';
 import ForgotPassword from './components/Login/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/Login/ResetPassword/ResetPassword';
+import EditProperty from './components/EditProperty/EditProperty';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <ProtectedRoute><Dashboard /></ProtectedRoute>
+      },
+      {
+        path: "property/edit/:id",
+        element: <ProtectedRoute><EditProperty /></ProtectedRoute>
       },
       {
         path: "propertydashboard/:id",

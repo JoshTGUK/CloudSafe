@@ -20,11 +20,6 @@
   border: none;
 }
 
-.property-card:hover .property-actions {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 .property-image.property-image-box {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -36,6 +31,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
+  position: relative;
 }
 
 .property-image.property-image-box img {
@@ -74,48 +70,62 @@
   z-index: 2;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
+}
+
+.property-card:hover .property-actions {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .action-button {
+  width: 44px;
+  height: 44px;
   border: none;
-  background: rgba(34, 34, 34, 0.6);
-  box-shadow: none;
-  color: inherit;
-  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: none;
+  transition: all 0.2s ease;
   border-radius: 8px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .action-button:hover {
-  background: rgba(34, 34, 34, 0.85);
+  transform: translateY(-2px);
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .action-button.edit {
-  color: #222;
-}
-.action-button.edit:hover {
-  color: #176fc1;
+  background: rgba(26, 128, 229, 0.9);
 }
 
-.action-button.edit svg,
-.action-button.delete svg {
-  color: #fff !important;
+.action-button.edit:hover {
+  background: #1A80E5;
 }
-.action-button.edit:hover svg,
-.action-button.delete:hover svg {
-  color: #fff !important;
+
+.action-button.edit svg {
+  fill: white;
 }
 
 .action-button.delete {
-  color: #ff3b30;
+  background: rgba(255, 59, 48, 0.9);
 }
+
 .action-button.delete:hover {
-  color: #b71c1c;
+  background: #ff3b30;
+}
+
+.action-button.delete svg {
+  fill: white;
 }
 
 /* Keep your existing confirmation modal styles */

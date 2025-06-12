@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { MdEdit, MdDelete } from 'react-icons/md';
 import './PropertyCard.css';
 import placeholderImage from '../../assets/placeholder.png';
 
-const PropertyCard = ({ property, onDelete, onPropertyClick, onEdit }) => {
+const PropertyCard = ({ property, onDelete, onPropertyClick }) => {
   const [imageError, setImageError] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +35,8 @@ const PropertyCard = ({ property, onDelete, onPropertyClick, onEdit }) => {
   }, [property]);
 
   const handleClick = (e) => {
-    if (e.target.closest('.delete-button') || e.target.closest('.confirmation-modal')) {
+    // Don't trigger click if clicking on action buttons or modal
+    if (e.target.closest('.property-actions') || e.target.closest('.confirmation-modal')) {
       return;
     }
     onPropertyClick(property.id);
@@ -43,11 +44,15 @@ const PropertyCard = ({ property, onDelete, onPropertyClick, onEdit }) => {
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    if (onEdit) {
-      onEdit(property);
-    } else {
-      navigate(`/editproperty/${property.id}`);
-    }
+    // Navigate to the edit property page
+    navigate(`/property/edit/${property.id}`, { 
+      state: { property } // Pass the property data to the edit page
+    });
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    setShowConfirmDelete(true);
   };
 
   return (
@@ -62,29 +67,32 @@ const PropertyCard = ({ property, onDelete, onPropertyClick, onEdit }) => {
               e.target.src = placeholderImage;
             }}
           />
+          <div className="property-actions">
+            <button 
+              type="button"
+              className="action-button edit"
+              onClick={handleEdit}
+              title="Edit Property"
+            >
+              <span className="icon-wrapper">
+                <MdEdit size={24} />
+              </span>
+            </button>
+            <button 
+              type="button"
+              className="action-button delete"
+              onClick={handleDelete}
+              title="Delete Property"
+            >
+              <span className="icon-wrapper">
+                <MdDelete size={24} />
+              </span>
+            </button>
+          </div>
         </div>
         <div className="property-info property-info-left">
           <h3 className="property-name">{property.name}</h3>
           <p className="property-address">{property.address}</p>
-        </div>
-        <div className="property-actions">
-          <button 
-            className="action-button edit"
-            onClick={handleEdit}
-            title="Edit Property"
-          >
-            <FaEdit />
-          </button>
-          <button 
-            className="action-button delete"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowConfirmDelete(true);
-            }}
-            title="Delete Property"
-          >
-            <FaTrash />
-          </button>
         </div>
       </div>
 

@@ -6,6 +6,19 @@ import './SearchPopup.css';
 const SearchPopup = ({ isOpen, onClose, properties, searchTerm, onSearchChange, onPropertyClick }) => {
   const popupRef = useRef(null);
 
+  // Add helper function for image URLs
+  const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return placeholderImage;
+    if (imageUrl.startsWith('http')) return imageUrl;
+    
+    // If the URL already contains 'uploads/', use it as is
+    if (imageUrl.includes('uploads/')) {
+      return `${process.env.REACT_APP_API_URL}/api/${imageUrl}`;
+    }
+    // Otherwise, add 'uploads/' to the path
+    return `${process.env.REACT_APP_API_URL}/api/uploads/${imageUrl}`;
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -85,9 +98,13 @@ const SearchPopup = ({ isOpen, onClose, properties, searchTerm, onSearchChange, 
                     }}
                   >
                     <img 
-                      src={property.image_url || placeholderImage}
+                      src={getImageUrl(property.image_url)}
                       alt={property.name}
                       className="property-thumbnail"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholderImage;
+                      }}
                     />
                     <div className="property-details">
                       <h3>{property.name}</h3>
